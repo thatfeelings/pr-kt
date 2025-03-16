@@ -1,0 +1,28 @@
+import sql from 'mssql';
+
+// SQL Server connection configuration
+const sqlConfig = {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    server: process.env.DB_SERVER,
+    port: parseInt(process.env.DB_PORT), // Convert port to a number
+    options: {
+      encrypt: process.env.DB_ENCRYPT === 'false', // Convert "true"/"false" string to a boolean
+      trustServerCertificate: process.env.DB_ENCRYPT !== 'true',   },
+};
+
+async function executeQuery(query) {
+  try {
+    const pool = await sql.connect(sqlConfig);
+    const result = await pool.request().query(query);
+    return result.recordset; // Return the resulting rows
+  } catch (error) {
+    console.error('Database query error:', error);
+    throw error;
+  } finally {
+    sql.close(); // Close the connection pool
+  }
+}
+
+export { sqlConfig, executeQuery };
