@@ -5,10 +5,10 @@ const DynamicTable = ({ columns, data }) => {
   const [selectedRows, setSelectedRows] = useState([]); // Track selected rows
 
    // Add auto-incrementing ID to each row
-   const dataWithIds = data.map((item, index) => ({
-    id: index + 1, // Auto-increment ID starting from 1
-    ...item,
-  }));
+  //  const dataWithIds = data.map((item, index) => ({
+  //   id: index + 1, // Auto-increment ID starting from 1
+  //   ...item,
+  // }));
 
   // Handle "Select All" checkbox
   const handleSelectAll = (e, table) => {
@@ -51,7 +51,7 @@ const DynamicTable = ({ columns, data }) => {
 
   // Initialize table with enhanced columns
   const table = useReactTable({
-    data: dataWithIds,
+    data,
     columns: enhancedColumns,
     getCoreRowModel: getCoreRowModel(),
   });

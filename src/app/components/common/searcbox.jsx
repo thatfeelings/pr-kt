@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MagnifyingGlass } from "@phosphor-icons/react";
 
 const SearchBox = ({ type, onSearch, suggestions = [] }) => {
   const [query, setQuery] = useState('');
@@ -25,22 +26,23 @@ const SearchBox = ({ type, onSearch, suggestions = [] }) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 max-w-md mx-auto">
+    <div className="flex flex-col  max-w-md mx-auto">
       {/* Search Input */}
       <div className="relative">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="جستجو ..."
           value={query}
           onChange={handleInputChange}
-          className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          dir="rtl"
+          className="w-full border border-gray-300 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-400
+          text-right bg-primary-100 border border-black placeholder-black text-black"
         />
-        <button
+        <MagnifyingGlass size={32}
           onClick={handleSearch}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
-        >
-          Search
-        </button>
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white-500 text-white rounded-full 
+          overflow-visible bg-primary-80 size-8 p-1"
+        />
       </div>
 
       {/* Render Tags for 'tags' type */}
