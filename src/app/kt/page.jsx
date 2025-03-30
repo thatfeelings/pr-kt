@@ -14,7 +14,7 @@ export default function DynamicSP() {
   const handleExecuteSP = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/fetch-data", {
+      const response = await fetch("/api/dbo-pubdochandling", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
