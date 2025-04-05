@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import SearchBox from "./components/common/searcbox";
-import DynamicTable from "./components/common/dynamictables";
-import DataTable from "./components/common/dynamictable2";
-import KtRadio from "./components/common/ktradio";
+import SearchBox from "../components/common/searcbox";
+import DataTable from "../components/common/dynamictable2";
+import KtRadio from "../components/common/ktradio";
+import Link from "next/link";
+import EditIcon from "@mui/icons-material/Edit"; // Import Material UI edit icon
+
 
 export default function DynamicSP() {
   const [data, setData] = useState([]);
@@ -15,7 +17,7 @@ export default function DynamicSP() {
     setLoading(true);
     try {
       const response = await fetch("/api/dbo-pubdochandling", {
-        method: "POST",
+        method: "GET",
         headers: { "Content-Type": "application/json" },
       });
 
@@ -37,6 +39,15 @@ export default function DynamicSP() {
         { id: "combinedStatus", field: "combinedStatus", header: "نوع سند - وضعیت سند", width: 200 },
         { id: "fromdescdof", field: "fromdescdof", header: "عنوان", width: 150 },
         { id: "fromdatedfs", field: "fromdatedfs", header: "زمان ایجاد", width: 150 },
+        {
+          id: "edit",
+          field: "edit",
+          header: "ویرایش",
+          width: 80,
+          renderCell: (params) => (
+            <Link href={`/kt/${params.row.id}`}>
+              <EditIcon style={{ cursor: "pointer", color: "blue" }} />
+            </Link>)}
       ];
       
 
@@ -65,7 +76,7 @@ export default function DynamicSP() {
       </div>
       <div>
         {/* <DynamicTable data={data} columns={columns} /> */}
-        <DataTable rows={data} columns={columns}/>
+        <DataTable rows={data} columns={columns} />
       </div>
     </div>
   );
