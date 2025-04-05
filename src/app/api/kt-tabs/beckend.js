@@ -3,9 +3,9 @@ import { executeQuery } from "@/lib/db";
 export default async function pubDocHandling(req, res) {
   try {
     // Extract codedtsValue dynamically from the request (e.g., query params or body)
-    const { codedtsValue } = req.query; // Adjust to req.body if using POST requests
+    const { codedts } = req.query; // Adjust to req.body if using POST requests
 
-    if (!codedtsValue) {
+    if (!codedts) {
       return res.status(400).json({ error: "Missing codedtsValue in request" });
     }
 
@@ -18,7 +18,7 @@ export default async function pubDocHandling(req, res) {
 
     // Execute the query safely with the parameter value
     const result = await executeQuery(query, [
-      { name: "codedtsValue", type: "Int", value: codedtsValue },
+      { name: "codedtsValue", type: "Int", value: codedts },
     ]);
 
     if (result.length === 0) {
