@@ -1,39 +1,29 @@
-import { executeQuery } from '@/lib/db'; // Adjust the path
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import { executeQuery } from "@/lib/db";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  const { username, password } = await req.json();
-
   try {
-    // Query the database for the user
-    const query = `SELECT * FROM pubusers WHERE username = '${username}'`;
+    // const { username, password } = await req.json();
+
+    // Fetch user row with the stored encrypted password
+    const query = `SELECT * FROM pubusers`;
+    // const result = await executeQuery(query, [username]); // ✅ Prevent SQL injection
     const result = await executeQuery(query);
-    console.log(result, username, password)
-    if (result.length > 0) {
-      const user = result[0];
-
-      // Validate the password
-      const isValidPassword = bcrypt.compareSync(password, user.PassWord); // Replace with actual column name
-      if (true) {
-        const token = jwt.sign(
-          { username: user.Username, usn: user.USN },
-          process.env.SECRET_KEY,
-          { expiresIn: '1h' }
-        );
-
-        return new Response(
-          JSON.stringify({ token, user: { username: user.Username, usn: user.USN } }),
-          { status: 200 }
-        );
-      } else {
-        return new Response(JSON.stringify({ message: 'Invalid credentials' }), { status: 401 });
-      }
-    } else {
-      return new Response(JSON.stringify({ message: 'User not found' }), { status: 404 });
-    }
+    // if (result.length === 0) {
+    //   return NextResponse.json({ message: "User not found" }, { status: 404 });
+    // }
+    return NextResponse.json(result, {status: 200 })
+    // Compare entered password directly with the encrypted password
+    // if (password === userData.PassWord) {
+    //   return NextResponse.json({
+    //     message: "Login successful",
+    //     user: userData, // ✅ Returning full user info for session handling
+    //   }, { status: 200 });}
+    //  else {
+    //   return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
+    // }
   } catch (error) {
-    console.error('Error during login:', error);
-    return new Response(JSON.stringify({ message: 'Server error' }), { status: 500 });
+    console.error("Error during authentication:", error);
+    return NextResponse.json({ message: "Server error", error }, { status: 500 });
   }
 }
