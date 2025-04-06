@@ -8,7 +8,7 @@ function CodeMe(text, key) {
   for (let i = 0; i < text.length; i++) {
     s1 += String.fromCharCode(text.charCodeAt(i) + 2);
   }
-  key = '' + key + '';
+  key = '*' + key + '*';
   let j = 0;
   let result = '';
   for (let i = 0; i < s1.length; i++) {

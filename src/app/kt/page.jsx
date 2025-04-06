@@ -1,67 +1,56 @@
-"use client";
-
+'use client'
 import React, { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import SearchBox from "../components/common/searcbox";
 import DataTable from "../components/common/dynamictable2";
 import KtRadio from "../components/common/ktradio";
 import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit"; // Import Material UI edit icon
 
-
 export default function DynamicSP() {
-  const [data, setData] = useState([]);
-  const [columns, setColumns] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
+  const cachedUser = queryClient.getQueryData(["user"]); // ✅ Retrieve cached user data
+  console.log("Cached User Data:", cachedUser);
+ 
+  
+  const fetchSPData = async () => {
+    if (!cachedUser || !cachedUser.USN) throw new Error("User not authenticated");
 
-  const handleExecuteSP = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/dbo-pubdochandling", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
+    const response = await fetch("/api/dbo-pubdochandling", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: cachedUser.USN }), // ✅ Directly use cached user ID
+    });
 
-      const result = await response.json();
+    if (!response.ok) throw new Error("Failed to fetch data");
 
-      // Filter and combine columns
-      const transformedData = result.slice(0 ,20).map((item ,index) => ({
-        id: index + 1, // Use the index as a unique identifier
-        combinedDoc: `${item.DocNoDFS}-${item.DocDateDfs}`,
-        combinedStatus: `${item.DocStatusText}-${item.DescDTS}`,
-        fromdescdof: item.FromDescDFS,
-        fromdatedfs: item.FromDateDFS,
-      }));
-      
-
-      // Define columns with unique IDs
-      const dynamicColumns = [
-        { id: "combinedDoc", field: "combinedDoc", header: "شماره سند - تاریخ سند", width: 200 },
-        { id: "combinedStatus", field: "combinedStatus", header: "نوع سند - وضعیت سند", width: 200 },
-        { id: "fromdescdof", field: "fromdescdof", header: "عنوان", width: 150 },
-        { id: "fromdatedfs", field: "fromdatedfs", header: "زمان ایجاد", width: 150 },
-        {
-          id: "edit",
-          field: "edit",
-          header: "ویرایش",
-          width: 80,
-          renderCell: (params) => (
-            <Link href={`/kt/${params.row.id}`}>
-              <EditIcon style={{ cursor: "pointer", color: "blue" }} />
-            </Link>)}
-      ];
-      
-
-      setColumns(dynamicColumns);
-      setData(transformedData);
-      console.log(transformedData);
-      console.log(dynamicColumns);
-
-    } catch (error) {
-      console.error("Error executing stored procedure:", error);
-    } finally {
-      setLoading(false);
-    }
+    return response.json();
   };
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["spData"],
+    queryFn: fetchSPData,
+    staleTime: 5 * 60 * 1000, // ✅ Keep cached data fresh for 5 minutes
+    retry: 2,
+  });
+
+  const columns = [
+    { id: "combinedDoc", field: "combinedDoc", header: "شماره سند - تاریخ سند", width: 200 },
+    { id: "combinedStatus", field: "combinedStatus", header: "نوع سند - وضعیت سند", width: 200 },
+    { id: "fromdescdof", field: "fromdescdof", header: "عنوان", width: 150 },
+    { id: "fromdatedfs", field: "fromdatedfs", header: "زمان ایجاد", width: 150 },
+    {
+      id: "edit",
+      field: "edit",
+      header: "ویرایش",
+      width: 80,
+      renderCell: (params) => (
+        <Link href={`/kt/${params.row.id}`}>
+          <EditIcon style={{ cursor: "pointer", color: "blue" }} />
+        </Link>
+      ),
+    },
+  ];
 
   return (
     <div className="flex flex-col p-4 ml-4 mr-4 bg-white" dir="rtl">
@@ -70,13 +59,11 @@ export default function DynamicSP() {
         <KtRadio />
       </div>
       <div>
-        <button onClick={handleExecuteSP} disabled={loading}>
-          {loading ? "Executing..." : "Run Stored Procedure"}
-        </button>
+        {isLoading && <p>Loading...</p>}
+        {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
       </div>
       <div>
-        {/* <DynamicTable data={data} columns={columns} /> */}
-        <DataTable rows={data} columns={columns} />
+        <DataTable rows={data || []} columns={columns} />
       </div>
     </div>
   );

@@ -1,14 +1,23 @@
 import { executeQuery } from "@/lib/db";
+import { NextResponse } from "next/server";
 
-export async function GET(req) { // ✅ Named export for POST
+export async function POST(req) {
   try {
-    const spQuery = `
-      EXEC dbo.pubdocumenthandling 103,NULL,132,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL
-    `;
-    const result = await executeQuery(spQuery);
-    return Response.json(result, { status: 200 });
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+
+    if (!userId) {
+      return NextResponse.json({ message: "Unauthorized: Missing User ID" }, { status: 401 });
+    }
+
+    // ✅ Execute stored procedure with dynamic user ID
+    const spQuery = `EXEC dbo.pubdocumenthandling @userId,NULL,132,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL`;
+    const params = { userId };
+
+    const result = await executeQuery(spQuery, params);
+    return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error("Error executing stored procedure:", error);
-    return Response.json({ message: "Internal server error", error }, { status: 500 });
+    return NextResponse.json({ message: "Internal server error", error }, { status: 500 });
   }
 }
