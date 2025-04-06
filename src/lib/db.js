@@ -12,17 +12,42 @@ const sqlConfig = {
       trustServerCertificate: process.env.DB_ENCRYPT !== 'true',   },
 };
 
-async function executeQuery(query) {
+// async function executeQuery(query) {
+//   try {
+//     const pool = await sql.connect(sqlConfig);
+//     const result = await pool.request().query(query);
+//     return result.recordset; // Return the resulting rows
+//   } catch (error) {
+//     console.error('Database query error:', error);
+//     throw error;
+//   } finally {
+//     sql.close(); // Close the connection pool
+//   }
+// }
+
+async function executeQuery(query, params = {}) {
+  let pool;
+  
   try {
-    const pool = await sql.connect(sqlConfig);
-    const result = await pool.request().query(query);
-    return result.recordset; // Return the resulting rows
+    pool = await sql.connect(sqlConfig);
+    const request = pool.request();
+
+    // ✅ Bind parameters dynamically
+    for (const key in params) {
+      request.input(key, params[key]); // ✅ Ensures SQL Server recognizes @username
+    }
+
+    const result = await request.query(query);
+    return result.recordset; // ✅ Returns retrieved rows
+
   } catch (error) {
-    console.error('Database query error:', error);
+    console.error("Database query error:", error);
     throw error;
   } finally {
-    sql.close(); // Close the connection pool
+    if (pool) await pool.close(); // ✅ Prevent closing if `pool` wasn't initialized
   }
 }
+
+
 
 export { sqlConfig, executeQuery };

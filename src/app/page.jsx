@@ -5,15 +5,18 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PasswordDecoder from "./components/common/passdecoder";
 
-// const queryClient = useQueryClient();
 
-// const handleLogout = () => {
+  // const queryClient = useQueryClient();
+
+  // ✅ Clear user session data
+//   const handleLogout = () => {
 //   localStorage.removeItem("token"); // ✅ Remove auth token
 //   queryClient.removeQueries(["user"]); // ✅ Clears user session data
 // };
 
-
 async function loginUser({ username, password }) {
+
+
   const response = await fetch("/api/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -24,7 +27,7 @@ async function loginUser({ username, password }) {
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.message);
+    throw new Error(error.message || "login failed");
   }
 
   return response.json(); // Returns user data
@@ -79,7 +82,7 @@ export default function LoginPage() {
         {mutation.isLoading ? "Logging in..." : "Login"}
       </button>
       <br />
-      <PasswordDecoder />
+      {/* <PasswordDecoder /> */}
       </div>
     </div>
   );
