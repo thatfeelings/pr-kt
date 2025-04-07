@@ -9,13 +9,16 @@ import EditIcon from "@mui/icons-material/Edit"; // Import Material UI edit icon
 
 export default function DynamicSP() {
   const queryClient = useQueryClient();
-  const cachedUser = queryClient.getQueryData(["user"]); // ✅ Retrieve cached user data
+const cachedUser = queryClient.getQueryData(["user"]) || JSON.parse(localStorage.getItem("user"));
+console.log("Cached User Data:", cachedUser);
+
   console.log("Cached User Data:", cachedUser);
  
   
   const fetchSPData = async () => {
-    if (!cachedUser || !cachedUser.USN) throw new Error("User not authenticated");
-
+    if (!cachedUser || !cachedUser.USN) {
+      throw new Error("User authentication required. Please log in.");
+    }
     const response = await fetch("/api/dbo-pubdochandling", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -30,9 +33,14 @@ export default function DynamicSP() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["spData"],
     queryFn: fetchSPData,
-    staleTime: 5 * 60 * 1000, // ✅ Keep cached data fresh for 5 minutes
-    retry: 2,
+    retry: 3, // Retry fetching SP data up to 3 times
+    staleTime: Infinity, // Cache data permanently until invalidated
+    onError: (err) => {
+      console.error("Failed to fetch SP data:", err);
+      alert("Unable to load document data. Please try again.");
+    },
   });
+  
 
   const columns = [
     { id: "combinedDoc", field: "combinedDoc", header: "شماره سند - تاریخ سند", width: 200 },

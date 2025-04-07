@@ -37,6 +37,9 @@ async function executeQuery(query, params = {}) {
       request.input(key, params[key]); // ✅ Ensures SQL Server recognizes @username
     }
 
+    console.log("Executing Query:", query);
+    console.log("With Parameters:", params);
+    
     const result = await request.query(query);
     return result.recordset; // ✅ Returns retrieved rows
 

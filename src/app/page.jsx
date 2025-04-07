@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import PasswordDecoder from "./components/common/passdecoder";
+// import PasswordDecoder from "./components/common/passdecoder";
 
 const KEYCODE = '{AR&YZ&MZ}';
 
@@ -74,8 +74,9 @@ export default function LoginPage() {
     mutationFn: loginUser,
     onSuccess: (data) => {
       console.log("Token received:", data.token); // ✅ Debug the token
-      localStorage.setItem("token", data.token); // Store token
-      queryClient.setQueryData(["user"], data.user); // Cache user data for later SP calls
+      localStorage.setItem("token", data.token); // Cache token
+      localStorage.setItem("user", JSON.stringify(data.user)); // Cache user data
+      queryClient.setQueryData(["user"], data.user); // Store in query client
       router.push("/kt"); // Redirect after login
     },
     onError: (error) => {
@@ -83,12 +84,20 @@ export default function LoginPage() {
     },
   });
 
+  console.log("Mutation object:", mutation);
+
   return (
     <div dir="rtl" className="flex flex-col items-center justify-center h-screen bg-gray-100 gap-20 ">
       <div>
         <img className="w-60 h-auto mt-40" src="/parsroyal.png" alt="" />
       </div>
       <div className="gap-10 ">
+      <form
+  onSubmit={(e) => {
+    e.preventDefault(); // Prevents page reload
+    handleSubmit(); // Calls your handleSubmit function
+  }}
+>
       <input
         className="w-full p-3 border border-gray-300 rounded-md mb-4
         focus:outline-none focus:ring-2 focus:ring-black-500 text-gray-900 rtl:text-right"
@@ -106,12 +115,15 @@ export default function LoginPage() {
         onChange={(e) => setText(e.target.value)}
       />
       <button
-        className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition"
+        className="w-full bg-blue-600 text-white py-3
+        rounded-md hover:bg-blue-700 transition cursor-pointer"
         onClick={handleSubmit}
+        
         disabled={mutation.isLoading} // Disable button while loading
       >
-        {mutation.isLoading ? "Logging in..." : "Login"}
+        {mutation.isPending ? "در حال ورود به سیستم ..." : "ورود"}
       </button>
+      </form>
       <br />
       {/* <PasswordDecoder /> */}
       </div>
