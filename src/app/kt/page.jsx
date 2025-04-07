@@ -43,6 +43,7 @@ export default function DynamicSP() {
   
   const processedRows = (Array.isArray(data) ? data : []).map((row, index) => ({
     ...row,
+    codedts: row.CodeDTS,
     id: row.DFS || `${row.DocNoDFS}_${index}`, // Ensure unique ID
     combinedStatus: `${row.DocStatusText}-${row.DocDateDfs}`,
     combinedDoc: `${row.DocNoDFS}-${row.DocDateDfs}`,
@@ -82,7 +83,7 @@ export default function DynamicSP() {
       headerName: "ویرایش",
       flex: 0.5,
       renderCell: (params) => (
-        <Link href={`/kt/${params.row.id}`}>
+        <Link href={`/kt/${params.row.codedts}`}>
           <EditIcon style={{ cursor: "pointer", color: "blue" }} />
         </Link>
       )

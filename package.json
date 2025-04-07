@@ -33,6 +33,10 @@
     "eslint-config-next": "15.2.1",
     "tailwindcss": "^4"
   },
+  "resolutions": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
   "pnpm": {
     "ignoredBuiltDependencies": [
       "bcrypt",
