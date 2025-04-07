@@ -1,6 +1,7 @@
-import { useRouter } from "next/router";
+"use client";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { Key } from "@phosphor-icons/react";
+// import { Key } from "@phosphor-icons/react";
 
 const fetchTabs = async (codedts) => {
     const response = await fetch(`/api/dts-tabs?codedtsValue=${codedts}`)

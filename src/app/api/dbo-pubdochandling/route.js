@@ -1,26 +1,30 @@
 import { executeQuery } from "@/lib/db";
-// import { User } from "@phosphor-icons/react";
 import { NextResponse } from "next/server";
 
+export async function GET(request) {
+    try {
+        const { searchParams } = new URL(request.url);
+        const userId = searchParams.get("userId");
 
-export async function POST(req) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
+        if (!userId) {
+            return NextResponse.json({ message: "Unauthorized: Missing User ID" }, { status: 401 });
+        }
 
+        const spQuery = `EXEC dbo.pubdocumenthandling 103, NULL, @USER, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL`;
+        const params = { USER: userId };
 
-    if (!userId) {
-      return NextResponse.json({ message: "Unauthorized: Missing User ID" }, { status: 401 });
+        const result = await executeQuery(spQuery, params);
+        
+        if (!result || result.length === 0) {
+            return NextResponse.json({ message: "No data found" }, { status: 404 });
+        }
+
+        return NextResponse.json(result);
+    } catch (error) {
+        console.error("Error executing stored procedure:", error);
+        return NextResponse.json(
+            { message: "Internal server error" },
+            { status: 500 }
+        );
     }
-
-    // ✅ Execute stored procedure with dynamic user ID
-    const spQuery = `EXEC dbo.pubdocumenthandling 103,NULL,@USER,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL`;
-    const params = { USER: userId };
-
-    const result = await executeQuery(spQuery, params);
-    return NextResponse.json(result, { status: 200 });
-  } catch (error) {
-    console.error("Error executing stored procedure:", error);
-    return NextResponse.json({ message: "Internal server error", error }, { status: 500 });
-  }
 }

@@ -24,6 +24,7 @@ export default function DataTable({ rows, columns }) {
           sx={{
             "& .MuiDataGrid-columnHeader": {
               position: "relative",
+              textAlign: "right", // Ensures headers are RTL
             },
             "& .MuiDataGrid-columnSeparator": {
               right: "auto",
@@ -31,12 +32,14 @@ export default function DataTable({ rows, columns }) {
             },
             direction: 'rtl',
             border: 0,
-            '& .MuiDataGrid-cell': {
-              color: 'black', // Ensures cell text is black
+            "& .MuiDataGrid-cell": {
+              color: "black", // Ensures cell text is black
+              textAlign: "right", // Ensures data is aligned RTL
             },
-            '& .MuiDataGrid-columnHeader': {
-              color: 'black', // Ensures column headers text is black
-            },
+            "& .MuiDataGrid-columnHeaderTitle": {
+              direction: "rtl", // Ensures column headers respect RTL
+              textAlign: "right",
+            }
           }} />
       </Paper>
     </ThemeProvider>
