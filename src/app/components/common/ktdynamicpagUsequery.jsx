@@ -1,5 +1,6 @@
 // 'use client'
 import {useQuery,useQueryClient} from "@tanstack/react-query";
+import TabComponent from "./tabs";
 
 const fetchTabs = async (codedts) => {
     console.log("Received codedts in fetchTabs:", codedts); // ✅ Debugging
@@ -13,12 +14,16 @@ const fetchTabs = async (codedts) => {
 
 export default function QueryDts( {id} ){
     const queryClient = useQueryClient();
-    const cachedData = queryClient.getQueryData(["spData"]);
-    const codedts = id
-    console.log('here is prop', codedts);
-    
-    // const router = useRouter()
-    // const {codedts} = router.query
+    const cachedData = queryClient.getQueryData(["spData"]) || []; // ✅ Get cached data safely
+    const currentData = cachedData.find((item) => Number(item.DFS) === Number(id)) || null; // ✅ Find matching object
+    const codedts = currentData?.CodeDTS || null; // ✅ Get codedts from currentData
+
+    console.log("here is currentData", currentData)
+    console.log('here is prop', id);
+    console.log("here is data", cachedData);
+    console.log("here is codedts", codedts);
+
+
 
     const {data, error, isLoading} = useQuery({
         
@@ -34,18 +39,19 @@ export default function QueryDts( {id} ){
     if (isLoading) return <p>Loading ...</p>
     if (error) return <p>Error: {error.message}</p>
 
-    console.log("data is", data);
-    console.log(id);
+
 
 
     return (
         <div>
-            <h1>Fetched Tabs</h1>
+            {/* <h1>Fetched Tabs</h1>
             {data && Object.entries(data).map(([key, value]) => (
                 <div key={key}>
                     <strong>{key}:</strong> {value}
                 </div>
-            ))}
+            ))} */}
+
+            {/* <TabComponent /> */}
         </div>
     );
 }

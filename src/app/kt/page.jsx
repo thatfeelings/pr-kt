@@ -86,7 +86,7 @@ export default function DynamicSP() {
       headerName: "ویرایش",
       flex: 0.5,
       renderCell: (params) => (
-        <Link href={`/kt/${params.row.codedts}`}>
+        <Link href={`/kt/${params.row.id}`}>
           <EditIcon style={{ cursor: "pointer", color: "blue" }} />
         </Link>
       )
