@@ -33,6 +33,9 @@ export default function DynamicSP() {
     queryFn: fetchSPData,
     retry: 3,
     staleTime: Infinity,
+    onSuccess: (data) => {
+      queryClient.setQueryData(["spData"], data); // Update the query data
+    },
     onError: (err) => {
       console.error("Failed to fetch SP data:", err);
       alert("Unable to load document data. Please try again.");
@@ -51,7 +54,7 @@ export default function DynamicSP() {
     fromdescdfs: row.FromDescDFS,
   }));
 
-
+  console.log("All codedts values:", processedRows.map(row => row.codedts)); // ✅ Logs array of codedts
   const columns = [
     {
       id: "combinedDoc",
@@ -89,6 +92,8 @@ export default function DynamicSP() {
       )
     }
   ];
+
+  // console.log("Storage Test:", localStorage);
 
   return (
     <div className="flex flex-col p-4 ml-4 mr-4 bg-white" dir="rtl">

@@ -4,13 +4,13 @@ import { executeQuery } from "@/lib/db";
 export async function GET (request) {
     try {
         const { searchParams } = new URL(request.url);
-        const codedts = searchParams.get("codedts");
+        const codedtsValue = searchParams.get("codedtsvalue");
         const query = `
             SELECT Tab1DTS, Tab2DTS, Tab3DTS, Tab4DTS, Tab5DTS, Tab6DTS, Tab7DTS , Tab8DTS
             FROM PubDocumenttype
-            WHERE codedts = @codedtsvalue
+            WHERE codedts = @codedts
         `;
-        const params = { codedtsvalue : codedts };
+        const params = { codedts: codedtsValue }; // ✅ Matches SQL parameter name
         const result = await executeQuery(query, params);
 
         const filteredTabs = Object.entries(result[0] || {}).reduce((acc, [key, value]) => {

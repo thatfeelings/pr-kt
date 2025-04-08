@@ -1,16 +1,16 @@
-// "use client";
+"use client";
 // import { useRouter } from "next/navigation";
 // import { useQuery } from "@tanstack/react-query";
 // import { Key } from "@phosphor-icons/react";
-
+import { useParams } from "next/navigation";
 import QueryDts from "@/app/components/common/ktdynamicpagUsequery"
 
 
 
-export default async function DynamicTabsPage({params}){
-    
-    const {codedts} = await params
-    
+export default function DynamicTabsPage(){
+
+    const params = useParams(); // ✅ Get params safely
+    const id = params?.id; //
     // const router = useRouter()
     // const {codedts} = router.query
 
@@ -22,13 +22,13 @@ export default async function DynamicTabsPage({params}){
 
     // if (isLoading) return <p>Loading ...</p>
     // if (error) return <p>Error: {error.message}</p>
-
+    console.log("Received codedts from params:", params.id); // ✅ Debug
 
     return (
 
         <div>
-        <QueryDts codedts={codedts} />
-           <p>{codedts}</p>
+        <QueryDts id={id} />
+            <p>hi</p>
         </div>
     )
 }
