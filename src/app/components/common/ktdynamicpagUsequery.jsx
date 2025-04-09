@@ -33,7 +33,13 @@ export default function QueryDts( {id} ){
             return fetchTabs(codedts);
         },
         enabled: !!codedts,
+        
     })
+
+
+const tabsArray = data
+? Object.entries(data).map(([id, name]) => ({ id, name })): [];
+console.log("here is tabsArray", tabsArray);
 
 
     if (isLoading) return <p>Loading ...</p>
@@ -44,14 +50,7 @@ export default function QueryDts( {id} ){
 
     return (
         <div>
-            {/* <h1>Fetched Tabs</h1>
-            {data && Object.entries(data).map(([key, value]) => (
-                <div key={key}>
-                    <strong>{key}:</strong> {value}
-                </div>
-            ))} */}
-
-            {/* <TabComponent /> */}
+            <TabComponent tabs={tabsArray}/>
         </div>
     );
 }
