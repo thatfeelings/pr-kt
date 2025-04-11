@@ -17,13 +17,13 @@ export const TanStackProvider = ({ children }) => {
     });
 
     // ✅ Set up persistence using localStorage
-    const persister = createSyncStoragePersister({ storage: window.localStorage });
+    // const persister = createSyncStoragePersister({ storage: window.localStorage });
 
-    persistQueryClient({
-      queryClient: client, // ✅ Attach persistence to the Query Client
-      persister,  // ✅ Use localStorage to save query cache
-      maxAge: 1000 * 60 * 60 * 24, // ✅ Keep cache for 24 hours
-    });
+    // persistQueryClient({
+    //   queryClient: client, // ✅ Attach persistence to the Query Client
+    //   persister,  // ✅ Use localStorage to save query cache
+    //   maxAge: 1000 * 60 * 60 * 24, // ✅ Keep cache for 24 hours
+    // });
 
     return client;
   });

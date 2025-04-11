@@ -27,7 +27,7 @@ export default function DynamicTabsPage(){
     return (
 
         <div>
-        <QueryDts id={id} />
+        {/* <QueryDts id={id} /> */}
             <p>hi</p>
         </div>
     )
