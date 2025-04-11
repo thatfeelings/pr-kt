@@ -14,6 +14,7 @@ import { arSD } from "@mui/x-data-grid/locales";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
+import { DataGrid } from "@mui/x-data-grid";
 
 const cacheRtl = createCache({
   key: "data-grid-rtl-demo",
@@ -179,7 +180,7 @@ export default function DynamicSP() {
         <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
             <div dir="rtl" style={{ height: 400, width: "100%" }}>
-              <DataTable
+              <DataGrid
                 rows={processedRows}
                 columns={columns}
               />

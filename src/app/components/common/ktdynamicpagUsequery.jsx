@@ -1,6 +1,7 @@
-// 'use client'
+'use client'
 import {useQuery,useQueryClient} from "@tanstack/react-query";
 import TabComponent from "./tabs";
+import { useState } from "react";
 
 const fetchTabs = async (codedts) => {
     console.log("Received codedts in fetchTabs:", codedts); // ✅ Debugging
@@ -17,12 +18,12 @@ export default function QueryDts( {id} ){
     const cachedData = queryClient.getQueryData(["spData"]) || []; // ✅ Get cached data safely
     const currentData = cachedData.find((item) => Number(item.DFS) === Number(id)) || null; // ✅ Find matching object
     const codedts = currentData?.CodeDTS || null; // ✅ Get codedts from currentData
-
+    const [activeTab , setActiveTab] = useState(1)
     console.log("here is currentData", currentData)
     console.log('here is prop', id);
     console.log("here is data", cachedData);
     console.log("here is codedts", codedts);
-
+    
 
 
     const {data, error, isLoading} = useQuery({
@@ -50,7 +51,7 @@ console.log("here is tabsArray", tabsArray);
 
     return (
         <div>
-            <TabComponent tabs={tabsArray}/>
+            <TabComponent tabs={tabsArray} setActiveTab={setActiveTab} activeTab={1}/>
         </div>
     );
 }

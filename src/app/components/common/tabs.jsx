@@ -1,30 +1,25 @@
-import { Box } from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";  
+'use client';
+import { Box, Tab } from "@mui/material";
+import { TabContext, TabList } from "@mui/lab";  
 import { useState } from "react";
 
-const TabComponent = ({ tabs, activeTab, setActiveTab, tabContentComponents }) => {
-  const handleChange = (_, newValue) => { // ✅ Corrected function syntax
+const TabComponent = ({ tabs }) => {
+  const [activeTab, setActiveTab] = useState("0"); // Initialize activeTab as string
+
+  const handleChange = (_, newValue) => {
     setActiveTab(newValue);
   };
 
   return (
     <Box>
-      <TabContext value={String(activeTab)}> {/* ✅ Ensure value is a string */}
+      <TabContext value={activeTab}> {/* Ensure TabContext value matches activeTab */}
         <Box>
-          <TabList onChange={handleChange}> {/* ✅ Removed nested `Tabs` */}
+          <TabList onChange={handleChange}>
             {tabs.map(({ id, name }, index) => (
-              <Tab key={id} label={name} value={String(index)} />
+              <Tab key={id} label={name} value={String(index)} /> 
             ))}
           </TabList>
         </Box>
-
-        {/* ✅ Render corresponding tab content */}
-        {tabs.map(({ id }, index) => (
-          <TabPanel key={id} value={String(index)}>
-            {tabContentComponents?.[index]}
-          </TabPanel>
-        ))}
-
       </TabContext>
     </Box>
   );
