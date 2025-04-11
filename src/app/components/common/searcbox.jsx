@@ -38,16 +38,17 @@ const SearchBox = ({ placeholder = "Search...", onSearch }) => {
             </InputAdornment>
           ),
           sx: {
+            height:'40px',
             borderRadius: "50px", // Rounder edges to match the image
             backgroundColor: "#f5f5f5", // Light gray background
             "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "transparent", // Hide default border
+              borderColor: "#ACACAC", // Hide default border
             },
             "&:hover .MuiOutlinedInput-notchedOutline": {
               borderColor: "#ccc", // Add subtle border on hover
             },
             "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#1976d2", // Blue border when focused
+              borderColor: "#4E4E4E", // Blue border when focused
             },
           },
         }}
