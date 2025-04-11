@@ -1,25 +1,15 @@
 "use client";
 import React from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import SearchBox from "../components/common/searcbox";
-import DataTable from "../components/common/dynamictable2";
-import KtRadio from "../components/common/ktradio";
+import ToolBar from "../components/common/Toolbar";
+import DataTable from "../components/common/datatable";
 import Link from "next/link";
 // import EditIcon from "@mui/icons-material/Edit"; // Import Material UI edit icon
-import { Menu, MenuItem, IconButton } from "@mui/material"; // ✅ Import menu components
+import { Menu, MenuItem, IconButton, Toolbar } from "@mui/material"; // ✅ Import menu components
 import MoreVertIcon from "@mui/icons-material/MoreVert"; // ✅ Import three vertical dots icon
-import { prefixer } from "stylis";
-import rtlPlugin from "stylis-plugin-rtl";
-import { arSD } from "@mui/x-data-grid/locales";
-import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
-import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
-import { DataGrid } from "@mui/x-data-grid";
 
-const cacheRtl = createCache({
-  key: "data-grid-rtl-demo",
-  stylisPlugins: [prefixer, rtlPlugin]
-});
+
+
 
 export default function DynamicSP() {
   const queryClient = useQueryClient();
@@ -155,38 +145,25 @@ export default function DynamicSP() {
     }
   ];
 
-  const existingTheme = useTheme();
-
-  const theme = React.useMemo(
-    () =>
-      createTheme({}, arSD, existingTheme, {
-        direction: "rtl"
-      }),
-    [existingTheme]
-  );
+  
   // console.log("Storage Test:", localStorage);
 
   return (
     <div  className="flex flex-col p-4 ml-4 mr-4 bg-white">
       <div className="flex flex-row justify-between mt-4">
-        <SearchBox />
-        <KtRadio />
+        <ToolBar />
       </div>
       <div>
         {isLoading && <p>Loading...</p>}
         {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
       </div>
       <div >
-        <CacheProvider value={cacheRtl}>
-          <ThemeProvider theme={theme}>
-            <div dir="rtl" style={{ height: 400, width: "100%" }}>
-              <DataGrid
+        
+              <DataTable
                 rows={processedRows}
                 columns={columns}
               />
-            </div>
-          </ThemeProvider>
-        </CacheProvider>
+          
       </div>
     </div>
   );
