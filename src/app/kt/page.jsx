@@ -10,7 +10,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"; // ✅ Import three ver
 
 
 
-
 export default function DynamicSP() {
   const queryClient = useQueryClient();
   const cachedUser =
@@ -102,11 +101,13 @@ export default function DynamicSP() {
       id: "edit",
       field: "edit",
       headerName: "",
-      flex: 0.1,
+      flex: 0,
+      maxWidth: 20,
       sortable: false,
       disableColumnMenu: true,
       resizable: false,
-
+      pinned: "left", // ✅ Locks the column to the left side
+      headerAlign: "left", // ✅ Aligns the column header to the left
       renderCell: (params) => {
         const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -121,7 +122,7 @@ export default function DynamicSP() {
           <>
             {/* ✅ Three vertical dots button instead of edit icon */}
             <IconButton onClick={handleClick}>
-              <MoreVertIcon style={{ cursor: "pointer", color: "blue" }} />
+              <MoreVertIcon style={{ cursor: "pointer" }} />
             </IconButton>
 
             {/* ✅ Pop-up menu with links */}
@@ -149,22 +150,21 @@ export default function DynamicSP() {
   // console.log("Storage Test:", localStorage);
 
   return (
-    <div  className="flex flex-col p-4 ml-4 mr-4 bg-white">
-      <div className="flex flex-row justify-between mt-4">
-        <ToolBar />
+      <div className="flex flex-col p-4 ml-4 mr-4 bg-white">
+        <div className="flex flex-row justify-between mt-4">
+          <ToolBar />
+        </div>
+        <div>
+          {/* {isLoading && <p>Loading...</p>} */}
+          {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
+        </div>
+        <div>
+          <DataTable
+            rows={processedRows}
+            columns={columns}
+            loading={isLoading}
+          />
+        </div>
       </div>
-      <div>
-        {isLoading && <p>Loading...</p>}
-        {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
-      </div>
-      <div >
-        
-              <DataTable
-                rows={processedRows}
-                columns={columns}
-              />
-          
-      </div>
-    </div>
   );
 }
