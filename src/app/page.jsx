@@ -3,9 +3,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Container,
+  CircularProgress,
+  Paper,
+} from "@mui/material";
 // import PasswordDecoder from "./components/common/passdecoder";
 
 const KEYCODE = '{AR&YZ&MZ}';
+
 
   // const queryClient = useQueryClient();
 
@@ -87,46 +97,72 @@ export default function LoginPage() {
   console.log("Mutation object:", mutation);
 
   return (
-    <div dir="rtl" className="flex flex-col items-center justify-center h-screen bg-gray-100 gap-20 ">
-      <div>
-        <img className="w-60 h-auto mt-40" src="/parsroyal.png" alt="" />
-      </div>
-      <div className="gap-10 ">
-      <form
-  onSubmit={(e) => {
-    e.preventDefault(); // Prevents page reload
-    handleSubmit(); // Calls your handleSubmit function
-  }}
->
-      <input
-        className="w-full p-3 border border-gray-300 rounded-md mb-4
-        focus:outline-none focus:ring-2 focus:ring-black-500 text-gray-900 rtl:text-right"
-        type="text"
-        placeholder="نام کاربری"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        className="w-full p-3 border border-gray-300 rounded-md mb-4
-        focus:outline-none focus:ring-2 focus:ring-black-500 text-gray-900"
-        type="password"
-        placeholder="پسوورد"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button
-        className="w-full bg-blue-600 text-white py-3
-        rounded-md hover:bg-blue-700 transition cursor-pointer"
-        onClick={handleSubmit}
-        
-        disabled={mutation.isLoading} // Disable button while loading
-      >
-        {mutation.isPending ? "در حال ورود به سیستم ..." : "ورود"}
-      </button>
-      </form>
-      <br />
-      {/* <PasswordDecoder /> */}
-      </div>
-    </div>
+    <Container
+      maxWidth="xl"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "end",
+        height: "100vh",
+        backgroundColor: "#f5f5f5",
+        padding: 0,
+        margin: 0
+      }}
+    >
+      <Paper sx={{ height: "100vh", width: "30%", margin: 0, padding: 0 }}>
+        <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
+          <img
+            src="/parsroyal.png"
+            alt="Pars Royal"
+            style={{ width: "150px", marginBottom: "40px" }}
+          />
+        </Box>
+        <Box
+          component="form"
+          onSubmit={(e) => {
+            e.preventDefault(); // Prevents page reload
+            handleSubmit(); // Calls your handleSubmit function
+          }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 3,
+            width: "100%"
+          }}
+        >
+          <Typography variant="h5" textAlign="center" gutterBottom>
+            ورود به سیستم
+          </Typography>
+          <TextField
+            label="نام کاربری"
+            variant="outlined"
+            fullWidth
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            dir="rtl"
+          />
+          <TextField
+            label="پسوورد"
+            type="password"
+            variant="outlined"
+            fullWidth
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            size="large"
+            disabled={mutation.isLoading}
+            startIcon={mutation.isPending && <CircularProgress size={20} />}
+          >
+            {mutation.isPending ? "در حال ورود به سیستم ..." : "ورود"}
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 }

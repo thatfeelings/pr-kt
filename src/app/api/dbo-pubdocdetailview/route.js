@@ -3,21 +3,28 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
     try {
-        const { searchParams } = new URL(request.url);
-        const userId = searchParams.get("userId");
-
-        if (!userId) {
-            return NextResponse.json({ message: "Unauthorized: Missing User ID" }, { status: 401 });
+        const dtsserialdfs = searchParams.get("dtsSerialDfs");
+        const xxxserialdfs = searchParams.get("xxxSerialDfs");
+        const docstatus = searchParams.get("docStatus");
+        console.log("dtsserialdfs", dtsserialdfs);
+        
+        // Validate required parameters
+        if (!dtsserialdfs || !xxxserialdfs || !docstatus) {
+            return NextResponse.json(
+                { message: "Missing required parameters" },
+                { status: 400 }
+            );
         }
 
-        const spQuery = `EXEC dbo.pubdocumendetailview  @DTSSerialDFS, @XXXSerialDFS int=null, @DocStatus `;
-        const params = { USER: userId };
+        // Construct SQL query and parameters
+        const spQuery = `EXEC dbo.pubdocumentmainview @DTSSerialDFS, @XXXSerialDFS, @DocStatus`;
+        const params = {
+            DTSSerialDFS: dtsserialdfs,
+            XXXSerialDFS: xxxserialdfs,
+            DocStatus: docstatus,
+        };
 
         const result = await executeQuery(spQuery, params);
-        
-        if (!result || result.length === 0) {
-            return NextResponse.json({ message: "No data found" }, { status: 404 });
-        }
 
         return NextResponse.json(result);
     } catch (error) {

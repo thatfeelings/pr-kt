@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import TanStackProvider from "./components/provider/tanstack";
+import RTLThemeProvider from "./components/provider/theme";
+
 import DashBoard from "./components/common/dashboard";
 import { NextAppProvider } from '@toolpad/core/nextjs';
 
@@ -25,9 +27,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <RTLThemeProvider>
         <TanStackProvider>
           {children}
         </TanStackProvider>
+        </RTLThemeProvider>
       </body>
     </html>
   );

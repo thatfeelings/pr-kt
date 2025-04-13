@@ -1,9 +1,11 @@
+"use client";
+
 import React from 'react'
 import DataTable from '../common/datatable'
 
 
 
-const Tab2DTS = () => {
+const Tab2Dts = () => {
   return (
     <div>
       <DataTable />
@@ -11,4 +13,4 @@ const Tab2DTS = () => {
   );
 };
 
-export default Tab2DTS
+export default Tab2Dts

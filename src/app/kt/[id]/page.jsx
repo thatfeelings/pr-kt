@@ -1,35 +1,85 @@
 "use client";
-// import { useRouter } from "next/navigation";
-// import { useQuery } from "@tanstack/react-query";
-// import { Key } from "@phosphor-icons/react";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import QueryDts from "@/app/components/common/ktdynamicpagUsequery"
+import QueryDts from "@/app/components/common/querydts";
+
+// Fetch function for document details
+
+const fetchDocDetail = async (dtsserialdfs, xxxserialdfs, docstatus) => {
 
 
+  const response = await fetch(
+    `/api/dbo-pubdocdetailview?dtsserialdfs=${dtsserialdfs}&xxxserialdfs=${xxxserialdfs}&docstatus=${docstatus}`
+  );
 
-export default function DynamicTabsPage(){
+  if (!response.ok) throw new Error("Failed to fetch document details");
+  return response.json();
+};
 
-    const params = useParams(); // ✅ Get params safely
-    const id = params?.id; //
-    // const router = useRouter()
-    // const {codedts} = router.query
+// Fetch function for document view
+const fetchDocView = async ({ dtsserialdfs, xxxserialdfs, docstatus }) => {
 
-    // const {data, error, isLoading} = useQuery({
-    //     queryKey: ['tabs', codedts],
-    //     queryFn: ()=> fetchTabs(codedts),
-    //     enabled: !!codedts,
-    // })
+  const response = await fetch(
+    `/api/dbo-pubdocmainview?dtsserialdfs=${dtsserialdfs}&xxxserialdfs=${xxxserialdfs}&docstatus=${docstatus}`
+  );
+  if (!response.ok) throw new Error("Failed to fetch document view");
+  return response.json();
+};
 
-    // if (isLoading) return <p>Loading ...</p>
-    // if (error) return <p>Error: {error.message}</p>
-    console.log("Received codedts from params:", params.id); // ✅ Debug
+export default function DynamicTabsPage() {
+  const params = useParams(); // Get dynamic route params
+  const id = params?.id;
+    
 
-    return (
+  const dboData =
+    typeof window !== "undefined" && localStorage.getItem("spData");
+  const parsedData = JSON.parse(dboData);
+  const matchingObject = parsedData.find((item) => String(item.DFS) === String(id));
+  const dtsserialdfs = matchingObject?.DTSSerialDFS;
+  const xxxserialdfs = matchingObject?.XXXSerialDFS;
+  const docstatus = matchingObject?.DocStatus;
 
-        <div>
-        <QueryDts id={id} />
-            <p>hi</p>
-        </div>
-    )
+  console.log("bla bla :", dtsserialdfs, xxxserialdfs, docstatus);
+  console.log("ID :", id);
+
+  // Query for document details
+  const {
+    data: docDetail,
+    isLoading: isLoadingDocDetail,
+    error: errorDocDetail
+  } = useQuery({
+    queryKey: ["docDetail", dtsserialdfs, xxxserialdfs, docstatus],
+    queryFn: () => fetchDocDetail(dtsserialdfs, xxxserialdfs, docstatus),
+    enabled: !!dtsserialdfs && !!xxxserialdfs && !!docstatus, 
+  });
+  console.log("docdetail", docDetail);
+
+  
+
+  // Query for document view
+  const {
+    data: docView,
+    isLoading: isLoadingDocView,
+    error: errorDocView
+  } = useQuery({
+    queryKey: ["docView", dtsserialdfs, xxxserialdfs, docstatus],
+    queryFn: () => fetchDocView(dtsserialdfs, xxxserialdfs, docstatus),
+    enabled: !!dtsserialdfs && !!xxxserialdfs && !!docstatus, 
+  });
+
+  console.log("docview", docView);
+
+
+  if (isLoadingDocDetail || isLoadingDocView) return <p>Loading...</p>;
+  if (errorDocDetail)
+    return <p>Error loading document details: {errorDocDetail.message}</p>;
+  if (errorDocView)
+    return <p>Error loading document view: {errorDocView.message}</p>;
+
+  return (
+    <div>
+      {/* Pass fetched data as props */}
+      <QueryDts id={id} docDetail={docDetail} docView={docView} />
+    </div>
+  );
 }
-
