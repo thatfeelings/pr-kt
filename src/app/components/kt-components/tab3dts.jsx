@@ -1,9 +1,7 @@
 import React from 'react'
 import DataTable from '../common/datatable'
 
-
-
-const Detail = () => {
+const Tab3Dts = () => {
   return (
     <div>
       <DataTable />
@@ -11,4 +9,4 @@ const Detail = () => {
   );
 }
 
-export default Detail
+export default Tab3Dts

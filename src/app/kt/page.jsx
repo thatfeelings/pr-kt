@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ToolBar from "../components/common/Toolbar";
 import DataTable from "../components/common/datatable";
@@ -37,7 +38,7 @@ export default function DynamicSP() {
     retry: 3,
     staleTime: Infinity,
     onSuccess: (data) => {
-      queryClient.setQueryData(["spData"], data); // Update the query data
+      console.log("ok");
     },
     onError: (err) => {
       console.error("Failed to fetch SP data:", err);
@@ -45,6 +46,15 @@ export default function DynamicSP() {
     }
   });
   console.log("Fetched Data:", data); // Make sure it's an array with proper structure
+
+  useEffect (() => {
+    if (data) {
+      localStorage.setItem("spData", JSON.stringify(data));
+    }
+  }, [data]); // ✅ Add data to the dependency array
+
+  console.log("Data:", data); // ✅ Logs data
+
 
   const processedRows = (Array.isArray(data) ? data : []).map((row, index) => ({
     ...row,

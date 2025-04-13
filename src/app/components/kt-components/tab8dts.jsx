@@ -3,7 +3,7 @@ import DataTable from '../common/datatable'
 import { Box } from '@mui/material';
 import Botton from '../common/botton';
 
-const RelatedDocs = () => {
+const Tab8Dts = () => {
   return (
     <div>
         <Box>
@@ -19,4 +19,4 @@ const RelatedDocs = () => {
   );
 }
 
-export default RelatedDocs
+export default Tab8Dts

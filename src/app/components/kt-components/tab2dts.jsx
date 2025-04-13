@@ -1,12 +1,14 @@
 import React from 'react'
 import DataTable from '../common/datatable'
 
-const Items = () => {
+
+
+const Tab2DTS = () => {
   return (
     <div>
       <DataTable />
     </div>
   );
-}
+};
 
-export default Items
+export default Tab2DTS

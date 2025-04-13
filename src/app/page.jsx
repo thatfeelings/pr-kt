@@ -75,8 +75,8 @@ export default function LoginPage() {
     onSuccess: (data) => {
       console.log("Token received:", data.token); // ✅ Debug the token
       localStorage.setItem("token", data.token); // Cache token
-      localStorage.setItem("user", JSON.stringify(data.user)); // Cache user data
-      queryClient.setQueryData(["user"], data.user); // Store in query client
+      const { PassWord, ...filteredUser } = data.user; // Use object destructuring to exclude PassWord
+      localStorage.setItem("user", JSON.stringify(filteredUser)); // Cache filtered user data      // queryClient.setQueryData(["user"], data.user); // Store in query client
       router.push("/kt"); // Redirect after login
     },
     onError: (error) => {

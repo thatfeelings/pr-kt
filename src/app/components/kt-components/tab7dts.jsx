@@ -1,12 +1,12 @@
 import React from 'react'
 import DataTable from '../common/datatable'
 
-const Postscript = () => {
+const Tab7Dts = () => {
   return (
     <div>
-        <DataTable />
+      <DataTable />
     </div>
-  )
-}
+  );
+};
 
-export default Postscript
+export default Tab7Dts

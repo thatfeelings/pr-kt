@@ -1,7 +1,7 @@
 import React from 'react'
 import DataTable from '../common/datatable'
 
-const Events = () => {
+const Tab6Dts = () => {
   return (
     <div>
         <DataTable />
@@ -9,4 +9,4 @@ const Events = () => {
   )
 }
 
-export default Events
+export default Tab6Dts
