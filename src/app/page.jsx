@@ -10,30 +10,26 @@ import {
   Typography,
   Container,
   CircularProgress,
-  Paper,
+  Paper
 } from "@mui/material";
 // import PasswordDecoder from "./components/common/passdecoder";
 
-const KEYCODE = '{AR&YZ&MZ}';
+const KEYCODE = "{AR&YZ&MZ}";
 
+// const queryClient = useQueryClient();
 
-  // const queryClient = useQueryClient();
-
-  // ✅ Clear user session data
+// ✅ Clear user session data
 //   const handleLogout = () => {
 //   localStorage.removeItem("token"); // ✅ Remove auth token
 //   queryClient.removeQueries(["user"]); // ✅ Clears user session data
 // };
 
 async function loginUser({ username, password }) {
-
-
   const response = await fetch("/api/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password })
   });
-
 
   if (!response.ok) {
     const error = await response.json();
@@ -48,25 +44,26 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [text, setText] = useState("");
 
-
   const handleEncryptedPassword = (text, key) => {
-    let s1 = '';
+    let s1 = "";
     text = `$${text}#`; // ✅ Correct prefix/suffix formatting
-  
+
     for (let i = 0; i < text.length; i++) {
       s1 += String.fromCharCode(text.charCodeAt(i) + 2); // ✅ Apply character shifting
     }
-  
+
     key = `*${key}*`; // ✅ Ensure consistent key formatting
     let j = 0;
-    let result = '';
-  
+    let result = "";
+
     for (let i = 0; i < s1.length; i++) {
-      let s2 = String.fromCharCode((s1.charCodeAt(i) ^ key.charCodeAt(j % key.length)) ^ 63);
+      let s2 = String.fromCharCode(
+        s1.charCodeAt(i) ^ key.charCodeAt(j % key.length) ^ 63
+      );
       result += s2;
       j = ((j + 1) % key.length) + 1; // ✅ Correct key cycling logic
     }
-  
+
     return result; // ✅ Return encrypted password
   };
   const handleSubmit = () => {
@@ -76,8 +73,6 @@ export default function LoginPage() {
   };
   const router = useRouter();
   const queryClient = useQueryClient();
-
-  
 
   // TanStack Mutation to handle login
   const mutation = useMutation({
@@ -91,7 +86,7 @@ export default function LoginPage() {
     },
     onError: (error) => {
       alert(error.message); // Handle login errors
-    },
+    }
   });
 
   console.log("Mutation object:", mutation);
@@ -103,14 +98,25 @@ export default function LoginPage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
-        alignItems: "end",
+        alignItems: "start",
         height: "100vh",
         backgroundColor: "#f5f5f5",
         padding: 0,
         margin: 0
       }}
     >
-      <Paper sx={{ height: "100vh", width: "30%", margin: 0, padding: 0 }}>
+      <Paper
+        sx={{
+          display: "flex",
+          flexDirection: "column", // Enables flexbox layout
+          justifyContent: "center", // Centers children horizontally
+          alignItems: "center", // Centers children vertically
+          height: "100vh",
+          width: "25%",
+          margin: 0,
+          padding: 0
+        }}
+      >
         <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
           <img
             src="/parsroyal.png"
@@ -119,20 +125,26 @@ export default function LoginPage() {
           />
         </Box>
         <Box
+          alignItems="center"
           component="form"
           onSubmit={(e) => {
             e.preventDefault(); // Prevents page reload
             handleSubmit(); // Calls your handleSubmit function
           }}
           sx={{
+            width: "252px",
             display: "flex",
             flexDirection: "column",
-            gap: 3,
-            width: "100%"
+            gap: 3
           }}
         >
-          <Typography variant="h5" textAlign="center" gutterBottom>
-            ورود به سیستم
+          <Typography
+            variant="h7"
+            textAlign="right"
+            gutterBottom
+            sx={{ alignSelf: "start", mb: -2, pt: 2 }}
+          >
+            نام کاربری
           </Typography>
           <TextField
             label="نام کاربری"
@@ -142,6 +154,13 @@ export default function LoginPage() {
             onChange={(e) => setUsername(e.target.value)}
             dir="rtl"
           />
+          <Typography
+            variant="h7"
+            textAlign="right"
+            sx={{ alignSelf: "start", mb: -2, pt: 2 }}
+          >
+            رمزعبور
+          </Typography>
           <TextField
             label="پسوورد"
             type="password"
@@ -154,10 +173,13 @@ export default function LoginPage() {
             type="submit"
             variant="contained"
             color="primary"
-            fullWidth
             size="large"
             disabled={mutation.isLoading}
             startIcon={mutation.isPending && <CircularProgress size={20} />}
+            sx={{
+              width: "252px",
+              height: "40px"
+            }}
           >
             {mutation.isPending ? "در حال ورود به سیستم ..." : "ورود"}
           </Button>

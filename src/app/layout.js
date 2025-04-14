@@ -3,8 +3,6 @@ import "./globals.css";
 import TanStackProvider from "./components/provider/tanstack";
 import RTLThemeProvider from "./components/provider/theme";
 
-import DashBoard from "./components/common/dashboard";
-import { NextAppProvider } from '@toolpad/core/nextjs';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,14 +21,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en, fa">
+    <html lang="fa" dir="rtl">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <RTLThemeProvider>
-        <TanStackProvider>
-          {children}
-        </TanStackProvider>
+          <TanStackProvider>{children}</TanStackProvider>
         </RTLThemeProvider>
       </body>
     </html>

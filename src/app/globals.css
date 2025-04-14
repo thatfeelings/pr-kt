@@ -17,6 +17,21 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+  
+  @font-face {
+    font-family: 'IRANSans';
+    src: url('/fonts/IRANSans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Yekan';
+    src: url('/fonts/Yekan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
 }
 
 body {
