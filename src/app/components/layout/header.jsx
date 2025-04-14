@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,22 +12,14 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 
 export default function HeaderWithBreadcrumbs() {
+  
+  
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#1976d2' }}>
-      <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        {/* Left Side - Menu Icon */}
-        <IconButton edge="start" color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-
-        {/* Center - Title */}
-        <Typography variant="h6" sx={{ flexGrow: 1, textAlign: 'center' }}>
-          My Header
-        </Typography>
-
-        {/* Right Side - Breadcrumbs */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Breadcrumbs aria-label="breadcrumb">
+    <AppBar position="static" sx={{ backgroundColor: '#1976d2', height:"60px" }}>
+      <Toolbar sx={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+        
+          <Box >
+          <Breadcrumbs aria-label="breadcrumb" sx={{}}>
             <Link underline="hover" color="inherit" href="/">
               Home
             </Link>
@@ -35,13 +28,15 @@ export default function HeaderWithBreadcrumbs() {
             </Link>
             <Typography color="text.primary">Settings</Typography>
           </Breadcrumbs>
+          </Box>
+          <Box>
           <IconButton color="inherit" aria-label="notifications">
             <NotificationsIcon />
           </IconButton>
           <IconButton edge="end" color="inherit" aria-label="account">
             <AccountCircle />
           </IconButton>
-        </Box>
+          </Box>
       </Toolbar>
     </AppBar>
   );
