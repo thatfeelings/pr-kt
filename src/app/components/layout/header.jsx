@@ -24,7 +24,7 @@ export default function HeaderWithBreadcrumbs() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "8px 16px", // Adjust padding as needed
-        backgroundColor: "#FFFFF", // Background color for the header
+        backgroundColor: "#FFFFFF", // Background color for the header
         color: "white", // Text color
         height: "60px" // Fixed height for the header
       }}

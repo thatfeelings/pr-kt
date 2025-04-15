@@ -48,7 +48,9 @@ const DashLayout = ({ children }) => {
               flex: 1, // Allows children content to fill remaining vertical space
               width: "100%", // Prevent horizontal growth
               overflowY: "auto", // Enables vertical scrolling
-              overflowX: "hidden" // Prevents horizontal scrolling
+              overflowX: "hidden", // Prevents horizontal scrolling
+              backgroundColor: "#FFFFFF", // Background color for the header
+
             }}
           >
             {children}
