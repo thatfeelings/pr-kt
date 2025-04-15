@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { executeQuery } from "@/lib/db";
+import { executeQuery } from "../../../lib/db";
 import { NextResponse } from "next/server";
 import { serialize } from 'cookie';
 

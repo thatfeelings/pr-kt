@@ -8,6 +8,7 @@ import Link from "next/link";
 // import EditIcon from "@mui/icons-material/Edit"; // Import Material UI edit icon
 import { Menu, MenuItem, IconButton, Toolbar } from "@mui/material"; // ✅ Import menu components
 import MoreVertIcon from "@mui/icons-material/MoreVert"; // ✅ Import three vertical dots icon
+import { Box, Typography } from "@mui/material"; // Using MUI components for styling
 
 
 
@@ -160,21 +161,36 @@ export default function DynamicSP() {
   // console.log("Storage Test:", localStorage);
 
   return (
-      <div className="flex flex-col p-4 ml-4 mr-4 bg-white">
-        <div className="flex flex-row justify-between mt-4">
-          <ToolBar />
-        </div>
-        <div>
-          {/* {isLoading && <p>Loading...</p>} */}
-          {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
-        </div>
-        <div>
-          <DataTable
-            rows={processedRows}
-            columns={columns}
-            loading={isLoading}
-          />
-        </div>
-      </div>
+    <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      p: 4, // Padding
+      ml: 4, // Margin left
+      mr: 4, // Margin right
+      backgroundColor: "white", // Background color
+      width: "100%", // Ensures it fits within your layout
+      boxSizing: "border-box", // Consistent sizing
+    }}
+  >
+    {/* Toolbar Section */}
+    <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", mt: 4 }}>
+      <ToolBar />
+    </Box>
+
+    {/* Error Section */}
+    <Box>
+      {error && (
+        <Typography sx={{ color: "red" }}>
+          Error: {error.message}
+        </Typography>
+      )}
+    </Box>
+
+    {/* Data Table Section */}
+    <Box>
+      <DataTable rows={processedRows} columns={columns} loading={isLoading} />
+    </Box>
+  </Box>
   );
 }

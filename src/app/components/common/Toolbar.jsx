@@ -15,7 +15,7 @@ import {
   FileXls,
   SlidersHorizontal,
   TextAlignJustify
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import SearchBox from "./searcbox";
 
 export default function ToolBar() {

@@ -5,6 +5,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
+import { IconContext } from "@phosphor-icons/react";
 
 // Configure RTL cache
 const rtlCache = createCache({
@@ -37,11 +38,11 @@ const theme = createTheme({
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                         borderColor: "#18222F", // Focused border color
-                        
+
                     },
                     "&.Mui-active .MuiOutlinedInput-notchedOutline": {
                         borderColor: "#18222F", // Focused border color
-                        
+
                     },
                 },
             },
@@ -66,11 +67,11 @@ const theme = createTheme({
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                         borderColor: "#18222F", // Focused border color
-                        
+
                     },
                     "&.Mui-active .MuiOutlinedInput-notchedOutline": {
                         borderColor: "#18222F", // Focused border color
-                        
+
                     },
                 },
             },
@@ -96,8 +97,15 @@ export default function RTLThemeProvider({ children }) {
     return (
         <CacheProvider value={rtlCache}>
             <ThemeProvider theme={theme}>
-                <CssBaseline />
-                {children}
+                <IconContext.Provider
+                    value={{
+                        color: "#000000", // Primary color
+                        size: 24, // Default size
+                    }}
+                >
+                    <CssBaseline />
+                    {children}
+                </IconContext.Provider>
             </ThemeProvider>
         </CacheProvider>
     );

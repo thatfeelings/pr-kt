@@ -26,7 +26,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <RTLThemeProvider>
-          <TanStackProvider>{children}</TanStackProvider>
+          <TanStackProvider>
+            {children}
+          </TanStackProvider>
         </RTLThemeProvider>
       </body>
     </html>
