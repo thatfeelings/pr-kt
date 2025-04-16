@@ -11,11 +11,11 @@ import { ExpandLess, ExpandMore } from "@mui/icons-material"; // Icons for dropd
 const DropDownListItem = ({opacity, primary, icon, handleDropdownClick, dropdownOpen, link, captions  }) => {
   return (
     <div>
-
       <ListItem disablePadding sx={{ display: "block" }}>
-        <ListItemButton onClick={handleDropdownClick}>
+        <ListItemButton onClick={handleDropdownClick} sx={{}}>
           <ListItemIcon
             sx={{
+              color: "black",
               minWidth: 0,
               justifyContent: "center",
               mr: opacity ? 3 : "auto"
@@ -24,20 +24,18 @@ const DropDownListItem = ({opacity, primary, icon, handleDropdownClick, dropdown
             {icon}
           </ListItemIcon>
           <ListItemText primary={primary} sx={{ opacity: opacity ? 1 : 0 }} />
-          {dropdownOpen ? <ExpandLess /> : <ExpandMore />}
+          {dropdownOpen ? <ExpandLess sx={{ opacity: opacity ? 1 : 0 }}/> : <ExpandMore sx={{ opacity: opacity ? 1 : 0 }}/>}
         </ListItemButton>
       </ListItem>
 
       <Collapse in={dropdownOpen} timeout="auto" unmountOnExit>
-
-        {captions.map((item, index)=> (
-             <ListItem key={index} disablePadding>
-             <ListItemButton sx={{ pl: 4 }} component={Link} href={item.link}>
-               <ListItemText sx={{ pl: 4 }} primary={item.name} />
-             </ListItemButton>
-           </ListItem>
+        {captions.map((item, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton sx={{ pl: 4 }} component={Link} href={item.link}>
+              <ListItemText sx={{ pl: 4 }} primary={item.name} />
+            </ListItemButton>
+          </ListItem>
         ))}
-
       </Collapse>
     </div>
   );

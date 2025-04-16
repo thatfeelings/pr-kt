@@ -82,7 +82,7 @@ export default function LoginPage() {
       localStorage.setItem("token", data.token); // Cache token
       const { PassWord, ...filteredUser } = data.user; // Use object destructuring to exclude PassWord
       localStorage.setItem("user", JSON.stringify(filteredUser)); // Cache filtered user data      // queryClient.setQueryData(["user"], data.user); // Store in query client
-      router.push("/kt"); // Redirect after login
+      router.push("/dashboard"); // Redirect after login
     },
     onError: (error) => {
       alert(error.message); // Handle login errors

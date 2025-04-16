@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import QueryDts from "@/app/components/common/querydts";
+import QueryDts from "../../../../components/common/querydts";
 
 // Fetch function for document details
 

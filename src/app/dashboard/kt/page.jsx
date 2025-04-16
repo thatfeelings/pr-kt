@@ -2,8 +2,8 @@
 import React from "react";
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import ToolBar from "../components/common/Toolbar";
-import DataTable from "../components/common/datatable";
+import ToolBar from "../../../components/common/Toolbar";
+import DataTable from "../../../components/common/datatable";
 import Link from "next/link";
 // import EditIcon from "@mui/icons-material/Edit"; // Import Material UI edit icon
 import { Menu, MenuItem, IconButton, Toolbar } from "@mui/material"; // ✅ Import menu components
@@ -143,7 +143,7 @@ export default function DynamicSP() {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>
-                <Link href={`/kt/${params.row.id}`}>ویرایش</Link>
+                <Link href={`/dashboard/kt/${params.row.id}`}>ویرایش</Link>
               </MenuItem>
               {/* <MenuItem onClick={handleClose}>
                 <Link href={`/kt/${params.row.id}/additional-link`}>
