@@ -10,193 +10,197 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Link from "next/link";
 import {
-  Stack,
-  PenNib,
-  Bag,
-  Users,
-  Shapes,
-  ChartLineUp,
-  Storefront,
-  ArrowLineLeft,
-  ArrowLineRight,
-  Archive
+    Stack,
+    PenNib,
+    Bag,
+    Users,
+    Shapes,
+    ChartLineUp,
+    Storefront,
+    ArrowLineLeft,
+    ArrowLineRight,
+    Archive
 } from "@phosphor-icons/react";
 import MyListItem from "./listitem";
 import DropDownListItem from "./dropdownlistitem";
+import SearchBox from "../common/searcbox";
+import AccountCustom from "../common/account";
 
-const drawerWidth = 240;
+const drawerWidth = 265;
 const menuItems = [
-  { name: "Home", link: "/kt" },
-  { name: "Profile", link: "/kt" },
-  { name: "Settings", link: "/kt" },
-  { name: "Logout", link: "/kt" }
+    { name: "Home", link: "/kt" },
+    { name: "Profile", link: "/kt" },
+    { name: "Settings", link: "/kt" },
+    { name: "Logout", link: "/kt" }
 ];
 const menuItems2 = [
-  { name: "Home", link: "/kt" },
-  { name: "Profile", link: "/kt" },
-  { name: "Settings", link: "/kt" },
-  { name: "Logout", link: "/kt" }
+    { name: "Home", link: "/kt" },
+    { name: "Profile", link: "/kt" },
+    { name: "Settings", link: "/kt" },
+    { name: "Logout", link: "/kt" }
 ];
 
 const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create("width", {
+width: drawerWidth,
+transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen
-  }),
-  overflowX: "hidden"
+}),
+overflowX: "hidden"
 });
 
 const closedMixin = (theme) => ({
-  transition: theme.transitions.create("width", {
+    transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
+}),
+overflowX: "hidden",
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up("sm")]: {
     width: `calc(${theme.spacing(8)} + 1px)`
-  }
+}
 });
 
 const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open"
+shouldForwardProp: (prop) => prop !== "open"
 })(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
+width: drawerWidth,
+flexShrink: 0,
+whiteSpace: "nowrap",
+boxSizing: "border-box",
+...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme)
-  }),
-  ...(!open && {
+}),
+...(!open && {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme)
-  })
+})
 }));
 
 export default function DashDrawer() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+const theme = useTheme();
+const [open, setOpen] = React.useState(false);
 
   // State to control individual dropdowns
-  const [dropdownStates, setDropdownStates] = React.useState({
+const [dropdownStates, setDropdownStates] = React.useState({
     drop1: false,
     drop2: false,
     drop3: false,
     drop4: false,
     drop5: false,
     drop6: false
-  });
+});
 
-  const handleDrawerOpen = () => {
+const handleDrawerOpen = () => {
     setOpen(true);
-  };
+};
 
-  const handleDrawerClose = () => {
+const handleDrawerClose = () => {
     setOpen(false);
-  };
+};
 
   // Toggle a specific dropdown
-  const handleDropdownClick = (dropdownKey) => {
+const handleDropdownClick = (dropdownKey) => {
     setDropdownStates((prevState) => ({
       ...prevState, // Preserve other dropdown states
       [dropdownKey]: !prevState[dropdownKey] // Toggle the specific dropdown
     }));
-  };
+};
 
-  return (
+return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <Drawer variant="permanent" open={open} sx={{backgroundColor: "#FFFFF"}}>
+    <CssBaseline />
+    <Drawer variant="permanent" open={open} sx={{backgroundColor: "#FFFFF"}}>
+        <AccountCustom />
+        <SearchBox opacity={open} />
         <List>
-          <DropDownListItem
+        <DropDownListItem
             opacity={open}
             primary={"عمومی"}
             icon={<PenNib size={34} />}
             handleDropdownClick={() => handleDropdownClick("drop1")} // Pass unique key
             dropdownOpen={dropdownStates.drop1} // Use specific dropdown state
-            link={"/kt"}
+            link={"/dashboard/kt"}
             captions={menuItems}
-          />
-          <DropDownListItem
+        />
+        <DropDownListItem
             opacity={open}
             primary={"تولید"}
             icon={<Shapes size={34} />}
             handleDropdownClick={() => handleDropdownClick("drop2")} // Pass unique key
             dropdownOpen={dropdownStates.drop2} // Use specific dropdown state
-            link={"/kt"}
+            link={"/dashboard/kt"}
             captions={menuItems2}
-          />
-          <MyListItem
-            link={"/kt"}
+        />
+        <MyListItem
+            link={"/dashboard/kt"}
             primary={"دبیرخانه"}
             opacity={open}
             icon={<Archive size={34} />}
-          />
+        />
 
-          <DropDownListItem
+        <DropDownListItem
             opacity={open}
             primary={"فروشگاهی"}
             icon={<Storefront size={34} />}
             handleDropdownClick={() => handleDropdownClick("drop3")} // Pass unique key
             dropdownOpen={dropdownStates.drop3} // Use specific dropdown state
-            link={"/kt"}
+            link={"/dashboard/kt"}
             captions={menuItems2}
-          />
+        />
 
-          <DropDownListItem
+        <DropDownListItem
             opacity={open}
             primary={"پرسنلی"}
             icon={<Users size={34} />}
             handleDropdownClick={() => handleDropdownClick("drop4")} // Pass unique key
             dropdownOpen={dropdownStates.drop4} // Use specific dropdown state
-            link={"/kt"}
+            link={"/dashboard/kt"}
             captions={menuItems2}
-          />
-          <Box
+        />
+        <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
+            display: "flex",
+            justifyContent: "center",
             }}
-          >
+        >
             <Divider sx={{ width: "80%" }} />
-          </Box>
+        </Box>
 
-          <DropDownListItem
+        <DropDownListItem
             opacity={open}
             primary={"خرید"}
             icon={<Bag size={34} />}
             handleDropdownClick={() => handleDropdownClick("drop5")} // Pass unique key
             dropdownOpen={dropdownStates.drop5} // Use specific dropdown state
-            link={"/kt"}
+            link={"/dashboard/kt"}
             captions={menuItems2}
-          />
+        />
 
-          <DropDownListItem
+        <DropDownListItem
             opacity={open}
             primary={"فروش"}
             icon={<ChartLineUp size={34} />}
             handleDropdownClick={() => handleDropdownClick("drop6")} // Pass unique key
             dropdownOpen={dropdownStates.drop6} // Use specific dropdown state
-            link={"/kt"}
+            link={"/dashboard/kt"}
             captions={menuItems2}
-          />
+        />
         </List>
         <Box
-          sx={{
+        sx={{
             marginTop: "auto", // Pushes this box to the bottom
             display: "flex",
             justifyContent: "flex-end",
             p: 1 // Padding for better spacing
-          }}
+        }}
         >
-          <IconButton onClick={!open ? handleDrawerOpen : handleDrawerClose}>
+        <IconButton onClick={!open ? handleDrawerOpen : handleDrawerClose}>
             {open ? <ArrowLineRight /> : <ArrowLineLeft />}
-          </IconButton>
+        </IconButton>
         </Box>
-      </Drawer>
+    </Drawer>
     </Box>
-  );
+);
 }

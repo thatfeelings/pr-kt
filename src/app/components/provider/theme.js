@@ -18,6 +18,24 @@ const theme = createTheme({
     direction: "rtl", // Enables right-to-left support globally
 
     components: {
+        MuiDataGrid: {
+            defaultProps: {
+                localeText: {
+                    MuiTablePagination: {
+                        labelRowsPerPage: "تعداد سطر در هر صفحه",
+                        labelDisplayedRows: ({ from, to, count }) =>
+                            `${from}-${to} از ${count}`
+                    }
+                }
+            },
+            styleOverrides: {
+                root: {
+                    "& .MuiDataGrid-columnHeaders": {
+                        fontWeight: "bold !important " // Set bold font weight for column headers
+                    }
+                }
+            }
+        },
         MuiTextField: {
             styleOverrides: {
                 root: {
@@ -27,25 +45,23 @@ const theme = createTheme({
                     backgroundColor: "#FFFFF", // Background color
                     "& .MuiInputBase-root": {
                         borderRadius: 8, // Rounded corners
-                        backgroundColor: "#f9f9f9", // Background color
+                        backgroundColor: "#f9f9f9" // Background color
                     },
 
                     "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#ACACAC", // Default border color
+                        borderColor: "#ACACAC" // Default border color
                     },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#18222F", // Hover border color
+                        borderColor: "#18222F" // Hover border color
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#18222F", // Focused border color
-
+                        borderColor: "#18222F" // Focused border color
                     },
                     "&.Mui-active .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#18222F", // Focused border color
-
-                    },
-                },
-            },
+                        borderColor: "#18222F" // Focused border color
+                    }
+                }
+            }
         },
         MuiButton: {
             styleOverrides: {
@@ -56,39 +72,37 @@ const theme = createTheme({
                     backgroundColor: "#18222F", // Background color
                     "& .MuiInputBase-root": {
                         borderRadius: 8, // Rounded corners
-                        backgroundColor: "#f9f9f9", // Background color
+                        backgroundColor: "#f9f9f9" // Background color
                     },
 
                     "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#ACACAC", // Default border color
+                        borderColor: "#ACACAC" // Default border color
                     },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#18222F", // Hover border color
+                        borderColor: "#18222F" // Hover border color
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#18222F", // Focused border color
-
+                        borderColor: "#18222F" // Focused border color
                     },
                     "&.Mui-active .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#18222F", // Focused border color
-
-                    },
-                },
-            },
-        },
+                        borderColor: "#18222F" // Focused border color
+                    }
+                }
+            }
+        }
     },
     palette: {
         mode: "light", // Switch to 'dark' for dark mode
         primary: {
-            main: "#1976d2", // Customize primary color
+            main: "#1976d2" // Customize primary color
         },
         background: {
-            default: "#f5f5f5", // Customize background color
-        },
+            default: "#f5f5f5" // Customize background color
+        }
     },
     typography: {
-        fontFamily: `"IRANSans", "Yekan","Roboto", "Arial", sans-serif`,
-    },
+        fontFamily: `IRANYekanX`
+    }
 });
 
 

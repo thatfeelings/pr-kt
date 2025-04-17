@@ -1,8 +1,8 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import QueryDts from "../../../../components/common/querydts";
-
+import QueryDts from "../../../components/common/querydts";
+import { Box, Typography } from "@mui/material";
 // Fetch function for document details
 
 const fetchDocDetail = async (dtsserialdfs, xxxserialdfs, docstatus) => {
@@ -77,9 +77,13 @@ export default function DynamicTabsPage() {
     return <p>Error loading document view: {errorDocView.message}</p>;
 
   return (
-    <div>
-      {/* Pass fetched data as props */}
+    <Box sx={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", pt:"20px", gap:"20px" }}>
+      <Box >
+        <Typography>
+          شماره سند: {id}
+        </Typography>
+      </Box>
       <QueryDts id={id} docDetail={docDetail} docView={docView} />
-    </div>
+    </Box>
   );
 }

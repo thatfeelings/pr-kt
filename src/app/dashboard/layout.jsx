@@ -7,54 +7,47 @@ const DashLayout = ({ children }) => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        width: "100vw",
-        overflow: "hidden" // Prevent content overflow
+        display: "flex", // Makes the drawer and content side-by-side
+        height: "100vh", // Full height of the viewport
+        width: "100vw", // Full width of the viewport
+        overflow: "hidden", // Prevents content overflow outside the main layout
       }}
     >
+      {/* Drawer Section */}
+      <DashDrawer />
+
+      {/* Main Content Area */}
       <Box
         sx={{
-          flex: 1, // Adjust flex to maintain layout proportions
+          flex: 1, // Takes up the remaining space next to the drawer
           display: "flex",
-          width: "100%" // Ensure the container fits the viewport
+          flexDirection: "column",
+          overflow: "hidden", // Prevent horizontal overflow
         }}
       >
-        <DashDrawer />
+        {/* Header Section */}
         <Box
           sx={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            width: "calc(100vw - 240px)" // Shrink width dynamically based on DashDrawer width
+            position: "sticky", // Sticks the header at the top
+            top: 0,
+            zIndex: 1000, // Ensures it stays above scrollable content
+            backgroundColor: "#FFFFFF", // Background color for header
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-              position: "sticky",
-              top: 0,
-              zIndex: 1000,
-              overflow: "hidden" // Prevent sticky header from growing horizontally
-            }}
-          >
-            <HeaderWithBreadcrumbs />
-          </Box>
-          <Box
-            sx={{
-              flex: 1, // Allows children content to fill remaining vertical space
-              width: "100%", // Prevent horizontal growth
-              overflowY: "auto", // Enables vertical scrolling
-              overflowX: "hidden", // Prevents horizontal scrolling
-              backgroundColor: "#FFFFFF", // Background color for the header
+          <HeaderWithBreadcrumbs />
+        </Box>
 
-            }}
-          >
-            {children}
-          </Box>
+        {/* Scrollable Content Section */}
+        <Box
+          sx={{
+            flex: 1, // Fills the remaining vertical space
+            overflowY: "auto", // Enables vertical scrolling
+            overflowX: "hidden", // Prevents horizontal scrolling
+            padding: 2, // Optional: Add some spacing for content
+            backgroundColor: "#FFFFFF", // Background color for the content area
+          }}
+        >
+          {children}
         </Box>
       </Box>
     </Box>

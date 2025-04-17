@@ -16,33 +16,9 @@ const cacheRtl = createCache({
 const paginationModel = { page: 0, pageSize: 5 };
 
 export default function DataTable({ rows, columns, isLoading }) {
-  const existingTheme = useTheme();
-
-  const theme = React.useMemo(
-    () =>
-      createTheme({}, arSD, existingTheme, {
-        direction: "rtl",
-        components: {
-          MuiDataGrid: {
-            defaultProps: {
-              localeText: {
-                MuiTablePagination: {
-                  labelRowsPerPage: "تعداد سطر در هر صفحه", // ✅ Change "Rows per page" text to Persian
-                  labelDisplayedRows: ({ from, to, count }) =>
-                    `${from}-${to} از ${count}` // ✅ Example: "1-10 از 50"
-                }
-              }
-            }
-          }
-        }
-      }),
-    [existingTheme]
-  );
 
   return (
-    // < Paper sx={{ height: 'calc(100vh - 200px)', width: '100%', direction: 'rtl' }} >
-    <CacheProvider value={cacheRtl}>
-      <ThemeProvider theme={theme}>
+
         <div dir="rtl" style={{ height: "100%", width: "100%" }}>
           <DataGrid
             loading={isLoading}
@@ -56,9 +32,24 @@ export default function DataTable({ rows, columns, isLoading }) {
             checkboxSelection
             disableColumnSelector
             components={{
+              NoRowsOverlay: () => (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                    fontWeight: "bold", // Make the text bold if needed
+                    fontSize: "18px", // Adjust font size
+                  }}
+                >
+                  هیچ داده‌ای موجود نیست {/* Change the placeholder text to Persian */}
+                </Box>
+              ),
               LoadingOverlay: () => (
                 <Box
                   sx={{
+                    
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -71,7 +62,9 @@ export default function DataTable({ rows, columns, isLoading }) {
               )
             }}
             sx={{
-
+              "& .MuiDataGrid-columnHeaders": {
+                fontWeight: "bold !important", // Set bold font weight for column headers
+              },
               "& .MuiDataGrid-columnSeparator": {
                 left: "auto !important", // ✅ Ensure resizing handle is positioned on the left
                 right: "0 !important",
@@ -81,7 +74,6 @@ export default function DataTable({ rows, columns, isLoading }) {
           />
           {/* </Paper> */}
         </div>
-      </ThemeProvider>
-    </CacheProvider>
+
   );
 }

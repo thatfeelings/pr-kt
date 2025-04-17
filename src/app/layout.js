@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import TanStackProvider from "./components/provider/tanstack";
 import RTLThemeProvider from "./components/provider/theme";
+import { PersianDigitProvider } from "./components/provider/persiandigits";
 
 
 const geistSans = Geist({
@@ -27,7 +28,9 @@ export default function RootLayout({ children }) {
       >
         <RTLThemeProvider>
           <TanStackProvider>
+            <PersianDigitProvider>
             {children}
+            </PersianDigitProvider>
           </TanStackProvider>
         </RTLThemeProvider>
       </body>
