@@ -3,10 +3,11 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
     try {
-        const dtsserialdfs = searchParams.get("dtsSerialDfs");
-        const xxxserialdfs = searchParams.get("xxxSerialDfs");
-        const docstatus = searchParams.get("docStatus");
-        console.log("dtsserialdfs", dtsserialdfs);
+        const { searchParams } = new URL(request.url);
+
+        const dtsserialdfs = searchParams.get("dtsserialdfs");
+        const xxxserialdfs = searchParams.get("xxxserialdfs");
+        const docstatus = searchParams.get("docstatus");
         
         // Validate required parameters
         if (!dtsserialdfs || !xxxserialdfs || !docstatus) {

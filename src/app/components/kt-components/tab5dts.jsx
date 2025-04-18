@@ -1,12 +1,14 @@
 "use client";
 
 import React from 'react'
-import DataTable from '../common/datatable'
+import DocTable from '../common/datatable'
 
 const Tab5Dts = () => {
+  const emptyRows = []; // Empty data
+
   return (
     <div>
-      <DataTable />
+      <DocTable />
     </div>
   );
 }
