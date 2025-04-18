@@ -26,7 +26,6 @@ export default function QueryDts({ id, docDetail, docView }) {
     TitleStr: item.TitleStr,
     valueStr: item.valueStr,
   }));
-  console.log("nanato:", tableRowsDocView);
 
   const content = {
     Tab2DTS: <Tab2Dts datatable={tableRowsDocView} />,
