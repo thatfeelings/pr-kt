@@ -101,11 +101,13 @@ const handleDrawerClose = () => {
 };
 
   // Toggle a specific dropdown
-const handleDropdownClick = (dropdownKey) => {
-    setDropdownStates((prevState) => ({
-      ...prevState, // Preserve other dropdown states
-      [dropdownKey]: !prevState[dropdownKey] // Toggle the specific dropdown
-    }));
+  const handleDropdownClick = (dropdownKey) => {
+    if (open) { // Ensure dropdown interaction only works when the drawer is open
+        setDropdownStates((prevState) => ({
+          ...prevState, // Preserve other dropdown states
+          [dropdownKey]: !prevState[dropdownKey] // Toggle the specific dropdown
+        }));
+    }
 };
 
 return (
@@ -122,6 +124,7 @@ return (
     flexDirection: "column", // Stack items vertically
     gap: 2 }}>
         <DropDownListItem
+            isDrawerOpen={open} // Pass the open state as a prop
             opacity={open}
             primary={"عمومی"}
             icon={<PenNib size={34} />}
@@ -131,6 +134,7 @@ return (
             captions={menuItems}
         />
         <DropDownListItem
+            isDrawerOpen={open} // Pass the open state as a prop
             opacity={open}
             primary={"تولید"}
             icon={<Shapes size={34} />}
@@ -147,6 +151,7 @@ return (
         />
 
         <DropDownListItem
+            isDrawerOpen={open} // Pass the open state as a prop
             opacity={open}
             primary={"فروشگاهی"}
             icon={<Storefront size={34} />}
@@ -157,6 +162,7 @@ return (
         />
 
         <DropDownListItem
+            isDrawerOpen={open} // Pass the open state as a prop
             opacity={open}
             primary={"پرسنلی"}
             icon={<Users size={34} />}
@@ -175,6 +181,7 @@ return (
         </Box>
 
         <DropDownListItem
+            isDrawerOpen={open} // Pass the open state as a prop
             opacity={open}
             primary={"خرید"}
             icon={<Bag size={34} />}
@@ -185,6 +192,7 @@ return (
         />
 
         <DropDownListItem
+            isDrawerOpen={open} // Pass the open state as a prop
             opacity={open}
             primary={"فروش"}
             icon={<ChartLineUp size={34} />}

@@ -8,11 +8,11 @@ import Collapse from "@mui/material/Collapse"; // For the dropdown feature
 import { ExpandLess, ExpandMore } from "@mui/icons-material"; // Icons for dropdown toggle
 
 
-const DropDownListItem = ({opacity, primary, icon, handleDropdownClick, dropdownOpen, link, captions  }) => {
+const DropDownListItem = ({opacity, primary, icon, handleDropdownClick, dropdownOpen, isDrawerOpen, link, captions  }) => {
   return (
     <div>
       <ListItem disablePadding sx={{ display: "block" }}>
-        <ListItemButton onClick={handleDropdownClick} sx={{}}>
+        <ListItemButton disabled={!isDrawerOpen} onClick={handleDropdownClick} sx={{}}>
           <ListItemIcon
             sx={{
               color: "black",
@@ -31,7 +31,7 @@ const DropDownListItem = ({opacity, primary, icon, handleDropdownClick, dropdown
       <Collapse in={dropdownOpen} timeout="auto" unmountOnExit>
         {captions.map((item, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton sx={{ pl: 4 }} component={Link} href={link}>
+            <ListItemButton sx={{ pl: 4 }} component={Link} href={item.link}>
               <ListItemText sx={{ pl: 4 }} primary={item.name} />
             </ListItemButton>
           </ListItem>
