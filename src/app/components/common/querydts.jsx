@@ -19,9 +19,17 @@ const fetchTabs = async (codedts) => {
   return response.json();
 };
 
-export default function QueryDts({ id }) {
+
+export default function QueryDts({ id, docDetail, docView }) {
+
+  const tableRowsDocView = docView.map((item, index) => ({
+    TitleStr: item.TitleStr,
+    valueStr: item.valueStr,
+  }));
+  console.log("nanato:", tableRowsDocView);
+
   const content = {
-    Tab2DTS: <Tab2Dts />,
+    Tab2DTS: <Tab2Dts datatable={tableRowsDocView} />,
     Tab3DTS: <Tab3Dts />,
     Tab5DTS: <Tab5Dts />,
     Tab6DTS: <Tab6Dts />,

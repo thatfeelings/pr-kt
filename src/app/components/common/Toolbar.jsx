@@ -58,6 +58,7 @@ export default function ToolBar() {
           </Box>
           <Box
             sx={{
+              mr: 3,
               display: "flex",
               flexDirection: "column",
               flex: 1,

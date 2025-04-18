@@ -18,16 +18,19 @@ export async function GET(request) {
                 { status: 400 }
             );
         }
-
-        // Construct SQL query and parameters
-        const spQuery = `EXEC dbo.pubdocumentmainview @DTSSerialDFS, @XXXSerialDFS, @DocStatus`;
+        
         const params = {
             DTSSerialDFS: dtsserialdfs,
             XXXSerialDFS: xxxserialdfs,
             DocStatus: docstatus,
         };
 
+        // Construct SQL query and parameters
+        const spQuery = `EXEC dbo.pubdocumentmainview @DTSSerialDFS, @XXXSerialDFS, @DocStatus`;
+        
+
         const result = await executeQuery(spQuery, params);
+
         
         if (!result || result.length === 0) {
             return NextResponse.json({ message: "No data found" }, { status: 404 });

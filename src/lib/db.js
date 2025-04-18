@@ -13,18 +13,7 @@ const sqlConfig = {
   },
 };
 
-// async function executeQuery(query) {
-//   try {
-//     const pool = await sql.connect(sqlConfig);
-//     const result = await pool.request().query(query);
-//     return result.recordset; // Return the resulting rows
-//   } catch (error) {
-//     console.error('Database query error:', error);
-//     throw error;
-//   } finally {
-//     sql.close(); // Close the connection pool
-//   }
-// }
+
 
 async function executeQuery(query, params = {}) {
   let pool;

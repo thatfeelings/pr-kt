@@ -1,14 +1,15 @@
 "use client";
 
 import React from 'react'
-import DataTable from '../common/datatable'
+import DocTable from '../common/simpletable'
 
 
 
-const Tab2Dts = () => {
+const Tab2Dts = ({datatable}) => {
+  console.log('babato:',datatable);
   return (
     <div>
-      <DataTable />
+      <DocTable rows={datatable} />
     </div>
   );
 };

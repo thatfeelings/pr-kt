@@ -1,12 +1,8 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Paper from "@mui/material/Paper";
 import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
-import { arSD } from "@mui/x-data-grid/locales";
 import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
-import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 
 const cacheRtl = createCache({
   key: "data-grid-rtl-demo",
@@ -43,7 +39,7 @@ export default function DataTable({ rows, columns, isLoading }) {
                     fontSize: "18px", // Adjust font size
                   }}
                 >
-                  هیچ داده‌ای موجود نیست {/* Change the placeholder text to Persian */}
+                هیچ داده‌ای موجود نیست {/* Change the placeholder text to Persian */}
                 </Box>
               ),
               LoadingOverlay: () => (

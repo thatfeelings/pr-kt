@@ -21,11 +21,9 @@ const TabComponent = ({ tabs, tabContent }) => {
             ))}
           </TabList>
         </Box>
-
-        {/* Tab Content Rendering */}
         {tabs.map(({ id }, index) => (
           <TabPanel key={id} value={String(index)}>
-            {tabContent[`tab${index + 1}dts`] || <div>No content available</div>} {/* Render content dynamically */}
+            {tabContent[`Tab${index + 2}DTS`] || <div>No content available</div>} {/* Render content dynamically */}
           </TabPanel>
         ))}
       </TabContext>

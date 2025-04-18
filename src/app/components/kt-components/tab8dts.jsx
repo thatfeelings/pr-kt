@@ -1,15 +1,17 @@
 "use client";
 
 import React from 'react'
-import DataTable from '../common/datatable'
+import DocTable from '../common/datatable'
 import { Box } from '@mui/material';
 import Botton from '../common/botton';
 
 const Tab8Dts = () => {
+  const emptyRows = []; // Empty data
+
   return (
     <div>
-        <Box>
-      <DataTable />
+      <Box>
+      <DocTable />
       </Box>
       <Box>
       <Botton text={"صدور اسناد مرتبط"}/>
