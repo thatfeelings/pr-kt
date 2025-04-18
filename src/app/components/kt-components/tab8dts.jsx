@@ -6,12 +6,9 @@ import { Box } from '@mui/material';
 import Botton from '../common/botton';
 
 const Tab8Dts = () => {
-  const emptyRows = []; // Empty data
-
   return (
     <div>
       <Box>
-      <DocTable />
       </Box>
       <Box>
       <Botton text={"صدور اسناد مرتبط"}/>

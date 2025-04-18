@@ -23,7 +23,7 @@ const TabComponent = ({ tabs, tabContent }) => {
         </Box>
         {tabs.map(({ id }, index) => (
           <TabPanel key={id} value={String(index)}>
-            {tabContent[`Tab${index + 2}DTS`] || <div>No content available</div>} {/* Render content dynamically */}
+            {tabContent[id] || <div>No content available</div>} {/* Use `id` directly to match keys */}
           </TabPanel>
         ))}
       </TabContext>

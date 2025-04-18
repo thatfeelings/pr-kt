@@ -2,14 +2,12 @@
 
 import React from 'react'
 import DocTable from '../common/datatable'
+import { Box } from '@mui/material';
 
-const Tab5Dts = () => {
-  const emptyRows = []; // Empty data
-
+const Tab5Dts = ({datatable}) => {
   return (
-    <div>
-      <DocTable />
-    </div>
+    <Box>
+    </Box>
   );
 }
 

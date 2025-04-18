@@ -30,11 +30,11 @@ export default function QueryDts({ id, docDetail, docView }) {
 
   const content = {
     Tab2DTS: <Tab2Dts datatable={tableRowsDocView} />,
-    Tab3DTS: <Tab3Dts />,
-    Tab5DTS: <Tab5Dts />,
-    Tab6DTS: <Tab6Dts />,
-    Tab7DTS: <Tab7Dts />,
-    Tab8DTS: <Tab8Dts />
+    Tab3DTS: <Tab3Dts datatable={tableRowsDocView}/>,
+    Tab5DTS: <Tab5Dts datatable={tableRowsDocView}/>,
+    Tab6DTS: <Tab6Dts datatable={tableRowsDocView}/>,
+    Tab7DTS: <Tab7Dts datatable={tableRowsDocView}/>,
+    Tab8DTS: <Tab8Dts datatable={tableRowsDocView}/>
   };
   const [activeTab, setActiveTab] = useState(1);
   const storedData =
