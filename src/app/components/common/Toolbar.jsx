@@ -31,38 +31,43 @@ export default function ToolBar() {
             display: "flex",
             flexDirection: "row",
             alignItems: "center", // Align items vertically
+            height: "100px"
           }}
         >
          
           <Box sx={{ display: "flex", gap: 2 }}>
             <IconButton>
-              <TextAlignJustify size={24} />
+              <TextAlignJustify size={24} color="#18222F" />
             </IconButton>
             <IconButton>
-              <SlidersHorizontal size={24} />
+              <SlidersHorizontal size={24} color="#18222F" />
             </IconButton>
             <IconButton>
-              <Funnel size={24} />
+              <Funnel size={24} color="#18222F"/>
             </IconButton>
             <IconButton>
-              <Trash size={24} />
+              <Trash size={24} color="#18222F" />
             </IconButton>
-            <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />{" "}
+            <Divider orientation="vertical" flexItem sx={{ mx: 1 }} color="#18222F" />{" "}
             <IconButton>
-              <FileXls size={24} color="green" />
+              <FileXls size={24} color="#7CD95D" />
             </IconButton>
             <IconButton>
-              <Printer size={24} color="blue" />
+              <Printer size={24} color="#59A8D4" />
             </IconButton>
           </Box>
           <Box
             sx={{
+              display: "flex",
+              flexDirection: "column",
               flex: 1,
+              justifyContent:"center",
               maxWidth: "400px",
               paddingLeft: "16px",
+              alignItems : "center"
             }}
           >
-            <SearchBox />
+            <SearchBox width="422px"/>
           </Box>
         </Toolbar>
       </AppBar>

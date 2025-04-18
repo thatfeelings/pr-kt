@@ -30,8 +30,8 @@ const DateDisplay = () => {
   return (
     <Typography
       sx={{
-        color: "black", // Adjust color based on header style
-        fontWeight: "bold",
+        color:"#A1B5CE", // Adjust color based on header style
+        fontWeight: "regular",
         fontSize: "16px", // Adjust font size
         marginLeft: "16px" // Spacing between date and icons
       }}

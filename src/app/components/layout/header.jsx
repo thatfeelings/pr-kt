@@ -33,8 +33,8 @@ export default function HeaderWithBreadcrumbs() {
     >
       {/* Breadcrumbs Section */}
       <Box>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
+        <Breadcrumbs aria-label="breadcrumb" >
+          <Link underline="hover" color="#A1B5CE" href="/">
             <House size={24} />
           </Link>
           {pathSegments.map((segment, index) => {

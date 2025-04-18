@@ -109,12 +109,18 @@ const handleDropdownClick = (dropdownKey) => {
 };
 
 return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex"}}>
     <CssBaseline />
     <Drawer variant="permanent" open={open} sx={{backgroundColor: "#FFFFF"}}>
-        <AccountCustom />
+        <Box sx={{ my: 3}}>
+        <AccountCustom  />
+        </Box>
+        <Box sx={{ mb: 5}}>
         <SearchBox opacity={open} />
-        <List>
+        </Box>
+        <List sx={{  display: "flex",
+    flexDirection: "column", // Stack items vertically
+    gap: 2 }}>
         <DropDownListItem
             opacity={open}
             primary={"عمومی"}

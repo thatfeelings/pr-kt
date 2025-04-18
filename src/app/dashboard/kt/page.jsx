@@ -10,8 +10,6 @@ import { Menu, MenuItem, IconButton, Toolbar } from "@mui/material"; // ✅ Impo
 import MoreVertIcon from "@mui/icons-material/MoreVert"; // ✅ Import three vertical dots icon
 import { Box, Typography } from "@mui/material"; // Using MUI components for styling
 
-
-
 export default function DynamicSP() {
   const queryClient = useQueryClient();
   const cachedUser =
@@ -61,9 +59,9 @@ export default function DynamicSP() {
     ...row,
     codedts: row.CodeDTS,
     id: row.DFS || `${row.DocNoDFS}_${index}`, // Ensure unique ID
-    combinedStatus: `${row.DocStatusText}-${row.DocDateDfs}`,
-    combinedDoc: `${row.DocNoDFS}-${row.DocDateDfs}`,
+    combinedStatus: `${row.DocStatusText}-${row.DescDTS}`,
     fromdatedfs: row.FromDateDFS,
+    combinedDoc: `${row.DocNoDFS}-${row.DocDateDfs}`,
     fromdescdfs: row.FromDescDFS
   }));
 
@@ -73,15 +71,6 @@ export default function DynamicSP() {
   ); // ✅ Logs array of codedts
   const columns = [
     {
-      id: "combinedDoc",
-      field: "combinedDoc",
-      headerName: "شماره سند - تاریخ سند",
-      disableColumnMenu: true,
-      flex: 1,
-      minWidth: 150,
-      maxWidth: 200
-    },
-    {
       id: "combinedStatus",
       field: "combinedStatus",
       headerName: "نوع سند - وضعیت سند",
@@ -90,15 +79,7 @@ export default function DynamicSP() {
       minWidth: 150,
       maxWidth: 200
     },
-    {
-      id: "fromdescdfs",
-      field: "fromdescdfs",
-      headerName: "عنوان",
-      disableColumnMenu: true,
-      flex: 2,
-      minWidth: 150,
-      maxWidth: 400
-    },
+    
     {
       id: "fromdatedfs",
       field: "fromdatedfs",
@@ -108,6 +89,28 @@ export default function DynamicSP() {
       minWidth: 150,
       maxWidth: 300
     },
+    
+    {
+      id: "fromdescdfs",
+      field: "fromdescdfs",
+      headerName: "عنوان",
+      disableColumnMenu: true,
+      flex: 2,
+      minWidth: 150,
+      maxWidth: 750
+    },
+
+    {
+      id: "combinedDoc",
+      field: "combinedDoc",
+      headerName: "شماره سند - تاریخ سند",
+      disableColumnMenu: true,
+      flex: 1,
+      minWidth: 150,
+      maxWidth: 200
+    },
+   
+    
     {
       id: "edit",
       field: "edit",

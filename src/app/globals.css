@@ -24,20 +24,20 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'IRANYekanX', Arial, sans-serif;
+  font-family: 'IRANYekanX';
   direction: rtl;
 }
 
 @font-face {
   font-family: 'IRANYekanX';
-  src: url('/public/fonts/IRANYekanX-Regular.woff') format('truetype'); /* Adjust the file name */
+  src: url('../../public/fonts/IRANYekanX-Regular.woff') format('truetype'); /* Adjust the file name */
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'IRANYekanX';
-  src: url('/public/fonts/IRANYekanX-Bold.woff') format('truetype'); /* For bold text */
+  src: url('../../public/fonts/IRANYekanX-Bold.woff') format('truetype'); /* For bold text */
   font-weight: bold;
   font-style: normal;
 }

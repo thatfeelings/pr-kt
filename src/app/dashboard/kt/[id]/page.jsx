@@ -79,7 +79,7 @@ export default function DynamicTabsPage() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", pt:"20px", gap:"20px" }}>
       <Box >
-        <Typography>
+        <Typography sx={{  color: "#000000"}}>
           شماره سند: {id}
         </Typography>
       </Box>

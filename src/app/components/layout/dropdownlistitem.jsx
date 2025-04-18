@@ -31,7 +31,7 @@ const DropDownListItem = ({opacity, primary, icon, handleDropdownClick, dropdown
       <Collapse in={dropdownOpen} timeout="auto" unmountOnExit>
         {captions.map((item, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton sx={{ pl: 4 }} component={Link} href={item.link}>
+            <ListItemButton sx={{ pl: 4 }} component={Link} href={link}>
               <ListItemText sx={{ pl: 4 }} primary={item.name} />
             </ListItemButton>
           </ListItem>

@@ -101,6 +101,7 @@ const theme = createTheme({
         }
     },
     typography: {
+        
         fontFamily: `IRANYekanX`
     }
 });

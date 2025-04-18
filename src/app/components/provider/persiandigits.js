@@ -1,20 +1,35 @@
+// components/provider/PersianDigitContext.js
+
 "use client";
 
 import React, { createContext, useContext } from "react";
+import { ToPersianNumber } from "topersiannumber";
 
+// Create the context
 const PersianDigitContext = createContext();
 
-const toPersianDigits = (value) => {
-  const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-  return value.toString().replace(/\d/g, (digit) => persianDigits[digit]);
+// Function to convert digits to Persian
+const convertToPersianDigits = (content) => {
+  if (typeof content === "string" || typeof content === "number") {
+    return ToPersianNumber(content.toString());
+  }
+  return content;
 };
 
+// Provider component
 export const PersianDigitProvider = ({ children }) => {
   return (
-    <PersianDigitContext.Provider value={toPersianDigits}>
+    <PersianDigitContext.Provider value={convertToPersianDigits}>
       {children}
     </PersianDigitContext.Provider>
   );
 };
 
-export const usePersianDigits = () => useContext(PersianDigitContext);
+// Custom hook to use the context
+export const usePersianDigits = () => {
+  const context = useContext(PersianDigitContext);
+  if (!context) {
+    throw new Error("usePersianDigits must be used within a PersianDigitProvider");
+  }
+  return context;
+};
