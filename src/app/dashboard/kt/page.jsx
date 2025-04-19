@@ -168,9 +168,7 @@ export default function DynamicSP() {
     sx={{
       display: "flex",
       flexDirection: "column",
-      p: 4, // Padding
-      ml: 4, // Margin left
-      mr: 4, // Margin right
+      pl: 3,
       backgroundColor: "white", // Background color
       width: "100%", // Ensures it fits within your layout
       boxSizing: "border-box", // Consistent sizing

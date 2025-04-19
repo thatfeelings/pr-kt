@@ -43,7 +43,7 @@ const DashLayout = ({ children }) => {
             flex: 1, // Fills the remaining vertical space
             overflowY: "auto", // Enables vertical scrolling
             overflowX: "hidden", // Prevents horizontal scrolling
-            padding: 2, // Optional: Add some spacing for content
+            padding: 0, // Optional: Add some spacing for content
             backgroundColor: "#FFFFFF", // Background color for the content area
           }}
         >

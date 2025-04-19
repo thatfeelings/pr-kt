@@ -59,8 +59,11 @@ export default function DataTable({ rows, columns, isLoading }) {
             }}
             sx={{
               "& .MuiDataGrid-columnHeaders": {
-                backgroundColor: "#f5f5f5", // Optional: Add background color to the header for visibility
-              },
+                position: "sticky",       // Makes the header sticky
+                top: 0,                   // Pins it to the top
+                zIndex: 2,                // Ensures it stays above other content
+                backgroundColor: "#f5f5f5",
+               }, // Optional: Add background color              },
               "& .MuiDataGrid-columnHeaderTitle": {
                 fontWeight: "bold", // Make header title bold
                 fontSize: "16px",   // Adjust the font size if needed

@@ -8,9 +8,9 @@ const DocTable = ({ rows }) => {
         {/* Table Header */}
         <TableHead>
           <TableRow>
-            <TableCell align="center">ردیف</TableCell>
-            <TableCell align="center">شرح</TableCell>
-            <TableCell align="center">مقدار</TableCell>
+            <TableCell align="center" sx={{ fontWeight: "bold" }}>ردیف</TableCell>
+            <TableCell align="center" sx={{ fontWeight: "bold" }}>شرح</TableCell>
+            <TableCell align="center" sx={{ fontWeight: "bold" }}>مقدار</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
