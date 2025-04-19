@@ -169,13 +169,13 @@ export default function DynamicSP() {
       display: "flex",
       flexDirection: "column",
       pl: 3,
-      backgroundColor: "white", // Background color
       width: "100%", // Ensures it fits within your layout
       boxSizing: "border-box", // Consistent sizing
     }}
   >
     {/* Toolbar Section */}
-    <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", mt: 4 }}>
+    <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", mt: 4, backgroundColor: "#F6F8FA",
+}}>
       <ToolBar />
     </Box>
 
