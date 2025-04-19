@@ -113,7 +113,15 @@ const handleDrawerClose = () => {
 return (
     <Box sx={{ display: "flex"}}>
     <CssBaseline />
-    <Drawer variant="permanent" open={open} sx={{backgroundColor: "#FFFFF"}}>
+    <Drawer variant="permanent" open={open} sx={{backgroundColor: "#FFFFF",
+         "& .MuiDrawer-paper": {
+
+            scrollbarWidth: "none", // Hide scrollbar (Firefox)
+            "&::-webkit-scrollbar": {
+              display: "none", // Hide scrollbar (Chrome/Safari)
+            },
+          },
+     }}>
         <Box sx={{ my: 3}}>
         <AccountCustom  />
         </Box>
@@ -121,8 +129,14 @@ return (
         <SearchBox opacity={open} />
         </Box>
         <List sx={{  display: "flex",
-    flexDirection: "column", // Stack items vertically
-    gap: 2 }}>
+                     flexDirection: "column", // Stack items vertically
+                    gap: 2 ,
+                    height: "calc(100vh - 150px)", // Adjust height based on the content above and below
+                     scrollbarWidth: "none",       // Hide scrollbar in Firefox
+                    "&::-webkit-scrollbar": {
+                    width: "0px",
+                    },
+                    }}>
         <DropDownListItem
             isDrawerOpen={open} // Pass the open state as a prop
             opacity={open}
@@ -204,6 +218,11 @@ return (
         </List>
         <Box
         sx={{
+            backgroundColor: "#FBFBFB",
+            width: "100%",
+            position : "sticky",
+            bottom: 0,
+            right: 0,
             marginTop: "auto", // Pushes this box to the bottom
             display: "flex",
             justifyContent: "flex-end",
