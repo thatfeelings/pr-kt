@@ -10,10 +10,14 @@ import {
   Typography,
   Container,
   CircularProgress,
-  Paper
+  Paper,
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+  InputAdornment
 } from "@mui/material";
 // import PasswordDecoder from "./components/common/passdecoder";
-
+import { EyeSlash, Eye, XCircle  } from "@phosphor-icons/react";
 const KEYCODE = "{AR&YZ&MZ}";
 
 // const queryClient = useQueryClient();
@@ -43,6 +47,11 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [text, setText] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = ()=> {
+    setShowPassword((prev) => !prev);
+  }
+
 
   const handleEncryptedPassword = (text, key) => {
     let s1 = "";
@@ -101,8 +110,7 @@ export default function LoginPage() {
         alignItems: "start",
         height: "100vh",
         backgroundColor: "#f5f5f5",
-        padding: 0,
-        margin: 0
+        pr: -1,
       }}
     >
       <Paper
@@ -113,8 +121,7 @@ export default function LoginPage() {
           alignItems: "center", // Centers children vertically
           height: "100vh",
           width: "25%",
-          margin: 0,
-          padding: 0
+          ml: -2,
         }}
       >
         <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
@@ -135,7 +142,7 @@ export default function LoginPage() {
             width: "252px",
             display: "flex",
             flexDirection: "column",
-            gap: 3
+            gap: 3,
           }}
         >
           <Typography
@@ -153,6 +160,19 @@ export default function LoginPage() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             dir="rtl"
+            slotProps={{
+              input: {
+                endAdornment: username && (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setUsername("")} // Clears the text field
+                    >
+                      <XCircle  sx={{ color: "gray" }} />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
           <Typography
             variant="h7"
@@ -163,11 +183,30 @@ export default function LoginPage() {
           </Typography>
           <TextField
             label="پسوورد"
-            type="password"
+            type={showPassword ? "text" : "password"}
             variant="outlined"
             fullWidth
             value={text}
             onChange={(e) => setText(e.target.value)}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <IconButton onClick={togglePasswordVisibility}>
+                    {showPassword ? <Eye /> : <EyeSlash />}
+                  </IconButton>
+                ),
+              },
+            }}
+          />
+          <FormControlLabel
+            control={<Checkbox />}
+            label="مرا به خاطر بسپار"
+            sx={{
+              display: "flex",
+              justifyContent: "flex-start",
+              textAlign: "right",
+              width: "100%",
+            }}
           />
           <Button
             type="submit"
@@ -178,11 +217,18 @@ export default function LoginPage() {
             startIcon={mutation.isPending && <CircularProgress size={20} />}
             sx={{
               width: "252px",
-              height: "40px"
+              height: "40px",
             }}
           >
             {mutation.isPending ? "در حال ورود به سیستم ..." : "ورود"}
           </Button>
+          <Typography
+            textAlign="center"
+            color="red"
+            sx={{ alignSelf: "start", mb: -2, pt: 2 }}
+          >
+            فراموشی رمزعبور
+          </Typography>
         </Box>
       </Paper>
     </Container>
