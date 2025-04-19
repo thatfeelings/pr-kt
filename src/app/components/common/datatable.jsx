@@ -59,7 +59,11 @@ export default function DataTable({ rows, columns, isLoading }) {
             }}
             sx={{
               "& .MuiDataGrid-columnHeaders": {
-                fontWeight: "bold !important", // Set bold font weight for column headers
+                backgroundColor: "#f5f5f5", // Optional: Add background color to the header for visibility
+              },
+              "& .MuiDataGrid-columnHeaderTitle": {
+                fontWeight: "bold", // Make header title bold
+                fontSize: "16px",   // Adjust the font size if needed
               },
               "& .MuiDataGrid-columnSeparator": {
                 left: "auto !important", // ✅ Ensure resizing handle is positioned on the left

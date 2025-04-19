@@ -11,7 +11,7 @@ const TabComponent = ({ tabs, tabContent }) => {
   };
 
   return (
-    <Box>
+    <Box sx={{display: "flex", flexDirection: "column"}}>
       <TabContext value={activeTab}> {/* Ensure TabContext value matches activeTab */}
         {/* Tab List for Navigation */}
         <Box>
@@ -23,7 +23,7 @@ const TabComponent = ({ tabs, tabContent }) => {
         </Box>
         {tabs.map(({ id }, index) => (
           <TabPanel key={id} value={String(index)}>
-            {tabContent[id] || <div>No content available</div>} {/* Use `id` directly to match keys */}
+            {tabContent[id] || <div>Hello</div>} {/* Use `id` directly to match keys */}
           </TabPanel>
         ))}
       </TabContext>
