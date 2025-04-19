@@ -135,6 +135,7 @@ return (
                      scrollbarWidth: "none",       // Hide scrollbar in Firefox
                     "&::-webkit-scrollbar": {
                     width: "0px",
+                    paddingBottom: "60px",   // Reserve space for the fixed button
                     },
                     }}>
         <DropDownListItem
@@ -215,8 +216,8 @@ return (
             link={"/dashboard/kt"}
             captions={menuItems2}
         />
-        </List>
-        <Box
+
+<Box
         sx={{
             backgroundColor: "#FBFBFB",
             width: "100%",
@@ -233,6 +234,9 @@ return (
             {open ? <ArrowLineRight /> : <ArrowLineLeft />}
         </IconButton>
         </Box>
+        
+        </List>
+       
     </Drawer>
     </Box>
 );
