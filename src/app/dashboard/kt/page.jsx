@@ -114,7 +114,7 @@ export default function DynamicSP() {
     {
       id: "edit",
       field: "edit",
-      headerName: "s",
+      headerName: "",
       flex: 0,
       maxWidth: 20,
       sortable: false,
